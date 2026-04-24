@@ -13,6 +13,7 @@ import {
 import { Avatar, Badge, LanguageToggle } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { useAuth } from "@/auth/AuthContext";
+import { SessionTimeoutModal } from "@/auth/SessionTimeoutModal";
 import { cn } from "@/lib/utils";
 
 const TABS = [
@@ -212,6 +213,7 @@ export const PortalShell: React.FC = () => {
           <Outlet />
         </div>
       </main>
+      <SessionTimeoutModal />
     </div>
   );
 };
