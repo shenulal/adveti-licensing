@@ -171,6 +171,7 @@ export const BackOfficeShell: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-50 text-ink-primary">
+      <SkipLink />
       <header className="bg-surface-0 border-b border-border-default sticky top-0 z-40">
         <div className="px-4 sm:px-6 flex h-16 items-center gap-4">
           <Link
