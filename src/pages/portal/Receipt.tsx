@@ -1,7 +1,13 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
-import { CheckCircle2, Download, FileText, ChevronRight } from "lucide-react";
-import { Button, Card, CardContent } from "@/components/adveti";
+import { CheckCircle2, ChevronRight, FileText } from "lucide-react";
+import {
+  BilingualPDFPreview,
+  Button,
+  Card,
+  CardContent,
+  Ltr,
+} from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { formatAED, formatDate } from "@/lib/format";
 
@@ -15,64 +21,131 @@ const Receipt: React.FC = () => {
   const receiptNumber = "RCP-2026-00892";
   const paidAt = new Date();
 
+  const bodyEn = (
+    <div className="space-y-3">
+      <p className="text-[11px] uppercase tracking-[0.2em] text-gold-600 font-semibold">
+        Tax Invoice · VAT
+      </p>
+      <p>
+        ADVETI hereby acknowledges receipt of the following payment for
+        application <strong>{id ?? "—"}</strong>.
+      </p>
+      <table className="w-full text-[11px] border-t border-b border-border-default my-2">
+        <tbody>
+          <tr className="border-b border-border-default">
+            <td className="py-1.5">Application fee</td>
+            <td className="py-1.5 text-end font-mono">{formatAED(fee, "en")}</td>
+          </tr>
+          <tr className="border-b border-border-default">
+            <td className="py-1.5">VAT (5%)</td>
+            <td className="py-1.5 text-end font-mono">{formatAED(vat, "en")}</td>
+          </tr>
+          <tr>
+            <td className="py-1.5 font-semibold">Total</td>
+            <td className="py-1.5 text-end font-mono font-semibold text-navy-900">
+              {formatAED(total, "en")}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p className="text-[10px] text-ink-secondary">
+        TRN: 100123456700003 · Paid on {formatDate(paidAt, "en")}
+      </p>
+    </div>
+  );
+
+  const bodyAr = (
+    <div className="space-y-3">
+      <p className="text-[11px] uppercase tracking-[0.15em] text-gold-600 font-semibold">
+        فاتورة ضريبية · ضريبة القيمة المضافة
+      </p>
+      <p>
+        تقرّ أدفيتي باستلام الدفعة التالية مقابل الطلب رقم{" "}
+        <strong>{id ?? "—"}</strong>.
+      </p>
+      <table className="w-full text-[11px] border-t border-b border-border-default my-2">
+        <tbody>
+          <tr className="border-b border-border-default">
+            <td className="py-1.5">رسوم الطلب</td>
+            <td className="py-1.5 text-end font-mono" dir="ltr">
+              {formatAED(fee, "ar")}
+            </td>
+          </tr>
+          <tr className="border-b border-border-default">
+            <td className="py-1.5">ضريبة القيمة المضافة (5%)</td>
+            <td className="py-1.5 text-end font-mono" dir="ltr">
+              {formatAED(vat, "ar")}
+            </td>
+          </tr>
+          <tr>
+            <td className="py-1.5 font-semibold">الإجمالي</td>
+            <td className="py-1.5 text-end font-mono font-semibold text-navy-900" dir="ltr">
+              {formatAED(total, "ar")}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p className="text-[10px] text-ink-secondary">
+        الرقم الضريبي: 100123456700003 · مدفوعة في {formatDate(paidAt, "ar")}
+      </p>
+    </div>
+  );
+
   return (
-    <div className="max-w-2xl mx-auto py-6">
+    <div className="max-w-4xl mx-auto py-6 space-y-6">
       <Card variant="elevated">
-        <CardContent className="pt-8 pb-8 text-center">
-          <span className="inline-flex h-16 w-16 rounded-full bg-success-600 text-ink-inverse items-center justify-center mb-4">
-            <CheckCircle2 size={32} />
-          </span>
-          <h1 className="text-2xl font-bold text-ink-primary">
-            {isAr ? "تم الدفع بنجاح" : "Payment successful"}
-          </h1>
-          <p className="text-sm text-ink-secondary mt-2">
-            {isAr
-              ? "تم استلام دفعتك. سنحيل طلبك إلى مقيّم خلال يوم عمل واحد."
-              : "Your payment has been received. We will assign your application to an assessor within one business day."}
-          </p>
-
-          <dl className="mt-6 text-start text-sm bg-surface-50 rounded-lg p-5 space-y-2 border border-border-default">
-            <Row label={isAr ? "رقم الإيصال" : "Receipt no."} value={receiptNumber} mono />
-            <Row label={isAr ? "التاريخ" : "Date"} value={formatDate(paidAt, lang)} />
-            <Row label={isAr ? "رقم الطلب" : "Application reference"} value={id ?? "—"} mono />
-            <Row label={isAr ? "المبلغ" : "Amount"} value={formatAED(fee, lang)} />
-            <Row label={isAr ? "VAT" : "VAT"} value={formatAED(vat, lang)} />
-            <div className="pt-2 mt-2 border-t border-border-default flex justify-between font-semibold text-ink-primary">
-              <span>{isAr ? "الإجمالي" : "Total paid"}</span>
-              <span className="text-navy-900">{formatAED(total, lang)}</span>
+        <CardContent className="pt-6 pb-6">
+          <div className="flex items-start gap-4">
+            <span className="inline-flex h-12 w-12 rounded-full bg-success-600 text-ink-inverse items-center justify-center shrink-0">
+              <CheckCircle2 size={26} />
+            </span>
+            <div className="flex-1">
+              <h1 className="text-xl font-bold text-ink-primary">
+                {isAr ? "تم الدفع بنجاح" : "Payment successful"}
+              </h1>
+              <p className="text-sm text-ink-secondary mt-1">
+                {isAr
+                  ? "تم استلام دفعتك. سنحيل طلبك إلى مقيّم خلال يوم عمل واحد."
+                  : "Your payment has been received. We will assign your application to an assessor within one business day."}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-3 text-xs text-ink-secondary">
+                <span>
+                  {isAr ? "رقم الإيصال: " : "Receipt no.: "}
+                  <Ltr className="font-mono text-ink-primary">{receiptNumber}</Ltr>
+                </span>
+                <span aria-hidden>·</span>
+                <span>
+                  {isAr ? "رقم الطلب: " : "Application: "}
+                  <Ltr className="font-mono text-ink-primary">{id ?? "—"}</Ltr>
+                </span>
+              </div>
             </div>
-          </dl>
-
-          <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center">
-            <Button variant="secondary" iconStart={<Download size={16} />}>
-              {isAr ? "تنزيل فاتورة VAT" : "Download VAT invoice (PDF)"}
-            </Button>
             <Link to={`/portal/applications/${id}`}>
               <Button variant="gold" iconEnd={<ChevronRight size={16} className="rtl-flip" />}>
-                {isAr ? "متابعة حالة الطلب" : "Continue to application status"}
+                {isAr ? "متابعة الحالة" : "Continue"}
               </Button>
             </Link>
           </div>
-
-          <p className="text-xs text-ink-muted mt-4 inline-flex items-center gap-1">
-            <FileText size={12} />
-            {isAr
-              ? "تم إرسال نسخة من الإيصال إلى بريدك الإلكتروني"
-              : "A copy of this receipt has been sent to your email"}
-          </p>
         </CardContent>
       </Card>
+
+      <BilingualPDFPreview
+        titleEn="VAT Tax Invoice"
+        titleAr="فاتورة ضريبة القيمة المضافة"
+        referenceNumber={receiptNumber}
+        bodyEn={bodyEn}
+        bodyAr={bodyAr}
+        filename={`adveti-vat-invoice-${receiptNumber}.pdf`}
+      />
+
+      <p className="text-xs text-ink-muted text-center inline-flex items-center gap-1 justify-center w-full">
+        <FileText size={12} aria-hidden />
+        {isAr
+          ? "تم إرسال نسخة من الفاتورة إلى بريدك الإلكتروني"
+          : "A copy of this invoice has been sent to your email"}
+      </p>
     </div>
   );
 };
-
-const Row: React.FC<{ label: string; value: string; mono?: boolean }> = ({ label, value, mono }) => (
-  <div className="flex justify-between gap-3">
-    <dt className="text-ink-secondary">{label}</dt>
-    <dd className={mono ? "font-mono text-ink-primary" : "text-ink-primary"} dir={mono ? "ltr" : undefined}>
-      {value}
-    </dd>
-  </div>
-);
 
 export default Receipt;
