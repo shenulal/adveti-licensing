@@ -20,6 +20,7 @@ import {
   Button,
   Card,
   CardContent,
+  ConfettiBurst,
   Input,
   Modal,
   Select,
@@ -948,8 +949,14 @@ const SubmitButton: React.FC<{ id: string; isAr: boolean; data: WizardData }> = 
 }) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
   const canSubmit =
     data.agreeTruthful && data.agreeTerms && data.agreePrivacy && data.uaePassSigned;
+
+  const handleConfirm = () => {
+    setOpen(false);
+    setSuccess(true);
+  };
 
   return (
     <>
@@ -975,11 +982,8 @@ const SubmitButton: React.FC<{ id: string; isAr: boolean; data: WizardData }> = 
             <Button variant="ghost" onClick={() => setOpen(false)}>
               {isAr ? "إلغاء" : "Cancel"}
             </Button>
-            <Button
-              variant="gold"
-              onClick={() => navigate(`/portal/applications/${id}/payment`)}
-            >
-              {isAr ? "تأكيد ومتابعة الدفع" : "Confirm & continue to payment"}
+            <Button variant="gold" onClick={handleConfirm}>
+              {isAr ? "تأكيد التقديم" : "Confirm submission"}
             </Button>
           </>
         }
@@ -996,7 +1000,155 @@ const SubmitButton: React.FC<{ id: string; isAr: boolean; data: WizardData }> = 
           </p>
         )}
       </Modal>
+
+      {success && (
+        <SubmissionSuccess
+          id={id}
+          isAr={isAr}
+          onContinue={() => navigate(`/portal/applications/${id}/payment`)}
+          onDashboard={() => navigate("/portal/dashboard")}
+        />
+      )}
     </>
+  );
+};
+
+// =====================================================
+// Full-screen submission success — confetti + accordion
+// =====================================================
+
+const SubmissionSuccess: React.FC<{
+  id: string;
+  isAr: boolean;
+  onContinue: () => void;
+  onDashboard: () => void;
+}> = ({ id, isAr, onContinue, onDashboard }) => {
+  const [copied, setCopied] = React.useState(false);
+  const [openStep, setOpenStep] = React.useState<number | null>(0);
+
+  const copyId = async () => {
+    try {
+      await navigator.clipboard.writeText(id);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const steps = [
+    {
+      en: "Pay the application fee",
+      ar: "دفع رسوم الطلب",
+      bodyEn:
+        "Your application moves to review only after payment is confirmed. You'll be routed to a secure payment page next.",
+      bodyAr:
+        "ينتقل طلبك إلى المراجعة فور تأكيد الدفع. ستُحال إلى صفحة دفع آمنة في الخطوة التالية.",
+    },
+    {
+      en: "Assessor review (5 business days)",
+      ar: "مراجعة المقيّم (5 أيام عمل)",
+      bodyEn:
+        "An assessor will be assigned. You may receive a request for additional information — respond promptly to avoid delay.",
+      bodyAr:
+        "سيُخصَّص مقيّم لطلبك. قد تتلقى طلباً لمعلومات إضافية — يُرجى الرد بسرعة لتجنّب التأخير.",
+    },
+    {
+      en: "Decision & certificate",
+      ar: "القرار والشهادة",
+      bodyEn:
+        "Once approved, you'll receive a notification and can download your VAT-compliant certificate from the dashboard.",
+      bodyAr:
+        "عند الموافقة، ستصلك إشعار ويمكنك تنزيل شهادتك المتوافقة من لوحة التحكم.",
+    },
+  ];
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="submit-success-title"
+      className="fixed inset-0 z-[60] bg-surface-50/95 backdrop-blur-sm flex items-start sm:items-center justify-center p-4 overflow-y-auto"
+    >
+      <ConfettiBurst duration={3000} />
+      <div className="relative w-full max-w-xl bg-surface-0 rounded-2xl shadow-xl ring-1 ring-border-default p-8 text-center animate-scale-in">
+        <span className="mx-auto h-20 w-20 rounded-full bg-success-100 text-success-600 inline-flex items-center justify-center animate-scale-in-bounce">
+          <CheckCircle2 size={40} strokeWidth={2.4} />
+        </span>
+        <h2
+          id="submit-success-title"
+          className="mt-5 text-3xl font-bold text-ink-primary text-balance"
+        >
+          {isAr ? "تم تقديم طلبك!" : "Application submitted!"}
+        </h2>
+        <p className="mt-2 text-sm text-ink-secondary">
+          {isAr
+            ? "احفظ الرقم المرجعي للرجوع إليه."
+            : "Keep your reference number for any follow-up."}
+        </p>
+
+        <button
+          type="button"
+          onClick={copyId}
+          className="mt-5 mx-auto inline-flex items-center gap-2 px-4 py-3 rounded-md bg-surface-50 ring-1 ring-border-default font-mono text-lg text-ink-primary hover:bg-surface-100 focus-ring"
+          aria-label={isAr ? "نسخ الرقم المرجعي" : "Copy reference number"}
+          dir="ltr"
+        >
+          {id}
+          <span className="text-xs text-ink-secondary">
+            {copied ? (isAr ? "✓ تم النسخ" : "✓ Copied") : isAr ? "نسخ" : "Copy"}
+          </span>
+        </button>
+
+        <div className="mt-6 text-start">
+          <p className="text-xs uppercase tracking-wider font-semibold text-ink-muted mb-2">
+            {isAr ? "ماذا يحدث الآن؟" : "What happens next?"}
+          </p>
+          <div className="rounded-md ring-1 ring-border-default divide-y divide-border-default overflow-hidden bg-surface-0">
+            {steps.map((s, i) => {
+              const open = openStep === i;
+              return (
+                <div key={i}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenStep(open ? null : i)}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-start hover:bg-surface-50 focus-ring"
+                  >
+                    <span className="h-6 w-6 rounded-full bg-navy-900 text-ink-inverse text-xs font-bold inline-flex items-center justify-center shrink-0">
+                      {i + 1}
+                    </span>
+                    <span className="flex-1 text-sm font-semibold text-ink-primary">
+                      {isAr ? s.ar : s.en}
+                    </span>
+                    <ChevronRight
+                      size={14}
+                      className={cn(
+                        "text-ink-muted rtl-flip transition-transform",
+                        open && "rotate-90",
+                      )}
+                    />
+                  </button>
+                  {open && (
+                    <div className="px-12 pb-3 -mt-1 text-sm text-ink-secondary leading-relaxed animate-fade-in">
+                      {isAr ? s.bodyAr : s.bodyEn}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-7 flex flex-col sm:flex-row gap-2 justify-center">
+          <Button variant="ghost" onClick={onDashboard}>
+            {isAr ? "اذهب إلى لوحة التحكم" : "Go to my dashboard"}
+          </Button>
+          <Button variant="gold" onClick={onContinue}>
+            {isAr ? "متابعة الدفع" : "Continue to payment"}
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 

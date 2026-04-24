@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { Info, Inbox, Search } from "lucide-react";
+import { Info, Search } from "lucide-react";
 import {
   Badge,
   Button,
   Card,
   CardContent,
+  EmptyInboxIllustration,
+  EmptyState,
   Input,
   SLAClock,
   Select,
@@ -325,20 +327,16 @@ const AssessorQueue: React.FC = () => {
 
       {filtered.length === 0 ? (
         <Card variant="bordered">
-          <CardContent className="py-16 flex flex-col items-center text-center gap-3">
-            <div className="h-16 w-16 rounded-full bg-surface-100 inline-flex items-center justify-center">
-              <Inbox size={28} className="text-ink-muted" />
-            </div>
-            <h2 className="text-lg font-semibold text-ink-primary">
-              {isAr
-                ? "لا توجد طلبات في قائمتك حالياً"
-                : "No applications in your queue right now"}
-            </h2>
-            <p className="text-sm text-ink-secondary max-w-sm">
-              {isAr
-                ? "ستظهر الطلبات الجديدة هنا فور تخصيصها لك."
-                : "New applications will appear here as soon as they are assigned to you."}
-            </p>
+          <CardContent>
+            <EmptyState
+              illustration={<EmptyInboxIllustration />}
+              title={isAr ? "قائمتك فارغة" : "Your queue is clear"}
+              description={
+                isAr
+                  ? "لا توجد طلبات تنتظر مراجعتك حالياً. ستظهر الطلبات الجديدة هنا فور تخصيصها لك."
+                  : "No applications are awaiting your review right now. New assignments will appear here as soon as they're routed to you."
+              }
+            />
           </CardContent>
         </Card>
       ) : (

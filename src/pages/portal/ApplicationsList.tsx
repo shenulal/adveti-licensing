@@ -1,7 +1,16 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, Plus, Search } from "lucide-react";
-import { Badge, Button, Card, CardContent, Input } from "@/components/adveti";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  DocumentPlusIllustration,
+  EmptyState,
+  Input,
+  SearchEmptyIllustration,
+} from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { formatDate } from "@/lib/format";
 import { mockApplications } from "@/lib/mockApplicant";
@@ -88,8 +97,40 @@ const ApplicationsList: React.FC = () => {
         ))}
         {filtered.length === 0 && (
           <Card variant="bordered">
-            <CardContent className="pt-10 pb-10 text-center text-sm text-ink-secondary">
-              {isAr ? "لا توجد طلبات مطابقة." : "No applications match your search."}
+            <CardContent>
+              {q ? (
+                <EmptyState
+                  illustration={<SearchEmptyIllustration />}
+                  title={isAr ? "لا توجد نتائج تطابق بحثك" : "No applications match your search"}
+                  description={
+                    isAr
+                      ? "جرّب تعديل البحث أو مسح الفلاتر."
+                      : "Try a different keyword or clear your search."
+                  }
+                  action={
+                    <Button variant="ghost" size="sm" onClick={() => setQ("")}>
+                      {isAr ? "مسح البحث" : "Clear search"}
+                    </Button>
+                  }
+                />
+              ) : (
+                <EmptyState
+                  illustration={<DocumentPlusIllustration />}
+                  title={isAr ? "لا طلبات بعد" : "No applications yet"}
+                  description={
+                    isAr
+                      ? "ابدأ طلبك الأول للحصول على رخصة معلم أو مرشد أو مدرب."
+                      : "Start your first application for a Teacher, Counsellor, or Trainer licence."
+                  }
+                  action={
+                    <Link to="/portal/apply">
+                      <Button variant="gold" iconStart={<Plus size={14} />}>
+                        {isAr ? "ابدأ طلبك الأول" : "Start your first application"}
+                      </Button>
+                    </Link>
+                  }
+                />
+              )}
             </CardContent>
           </Card>
         )}
