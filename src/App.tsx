@@ -47,6 +47,10 @@ import Committee from "@/pages/senior/Committee";
 import Reassign from "@/pages/senior/Reassign";
 import AutoAssignmentConfig from "@/pages/senior/AutoAssignmentConfig";
 import SeniorReports from "@/pages/senior/Reports";
+import FinanceReconciliation from "@/pages/finance/Reconciliation";
+import FinanceRefunds from "@/pages/finance/Refunds";
+import FinanceReports from "@/pages/finance/Reports";
+import FinanceVatReturn from "@/pages/finance/VatReturn";
 
 const queryClient = new QueryClient();
 
@@ -139,10 +143,10 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/finance/reconciliation" element={<Placeholder title="Reconciliation Dashboard" />} />
-                <Route path="/finance/refunds" element={<Placeholder title="Refund Approval Queue" />} />
-                <Route path="/finance/reports" element={<Placeholder title="Revenue Reports" />} />
-                <Route path="/finance/vat" element={<Placeholder title="VAT Return Export" />} />
+                <Route path="/finance/reconciliation" element={<FinanceReconciliation />} />
+                <Route path="/finance/refunds" element={<FinanceRefunds />} />
+                <Route path="/finance/reports" element={<FinanceReports />} />
+                <Route path="/finance/vat" element={<FinanceVatReturn />} />
               </Route>
 
               {/* ===== Admin ===== */}
