@@ -25,6 +25,8 @@ export const Stepper: React.FC<StepperProps> = ({
 
   return (
     <ol
+      role="list"
+      aria-label="Progress"
       className={cn(
         "flex w-full gap-0",
         baseOrientation,
