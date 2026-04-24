@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { Inbox, Search } from "lucide-react";
+import { Info, Inbox, Search } from "lucide-react";
 import {
   Badge,
   Button,
@@ -12,6 +12,7 @@ import {
   Table,
   type Column,
 } from "@/components/adveti";
+import { useAuth } from "@/auth/AuthContext";
 import { useLang } from "@/hooks/useLang";
 import { formatDate } from "@/lib/format";
 import { mockQueue, type QueueItem, type SlaStatus } from "@/lib/mockAssessor";
@@ -47,8 +48,10 @@ const slaTone = (s: SlaStatus): "success" | "warning" | "danger" => {
 
 const AssessorQueue: React.FC = () => {
   const { lang } = useLang();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const isAr = lang === "ar";
+  const isReadOnly = user?.role === "appeals_officer";
 
   const [status, setStatus] = React.useState<StatusFilter>("All");
   const [category, setCategory] = React.useState<CategoryFilter>("All");
