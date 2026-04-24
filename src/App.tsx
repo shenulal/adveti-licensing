@@ -57,6 +57,7 @@ import DsrRegister from "@/pages/audit/DsrRegister";
 import DecisionsReport from "@/pages/audit/DecisionsReport";
 import ExportsReport from "@/pages/audit/ExportsReport";
 import ContentTemplates from "@/pages/content/Templates";
+import OperationalDashboard from "@/pages/reports/OperationalDashboard";
 
 const queryClient = new QueryClient();
 
@@ -210,7 +211,7 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/reports/operational" element={<Placeholder title="Operational Dashboard" />} />
+                <Route path="/reports/operational" element={<OperationalDashboard />} />
                 <Route path="/reports/decisions" element={<DecisionsReport />} />
                 <Route path="/reports/exports" element={<ExportsReport />} />
               </Route>
