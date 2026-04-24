@@ -30,6 +30,7 @@ import {
   LanguageToggle,
   NotificationBell,
   SidebarNavItem,
+  SkipLink,
 } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { Role, roleLabel, useAuth } from "@/auth/AuthContext";
@@ -265,7 +266,10 @@ export const BackOfficeShell: React.FC = () => {
             collapsed ? "w-16" : "w-64",
           )}
         >
-          <nav className="flex-1 overflow-y-auto p-2 flex flex-col gap-1 text-start">
+          <nav
+            aria-label={isAr ? "تنقل البوابة الإدارية" : "Back-office navigation"}
+            className="flex-1 overflow-y-auto p-2 flex flex-col gap-1 text-start"
+          >
             {items.map((item) => {
               const active =
                 location.pathname === item.to ||
@@ -276,6 +280,8 @@ export const BackOfficeShell: React.FC = () => {
                     key={`${item.to}-${item.en}`}
                     to={item.to}
                     title={isAr ? item.ar : item.en}
+                    aria-label={isAr ? item.ar : item.en}
+                    aria-current={active ? "page" : undefined}
                     className={cn(
                       "h-10 w-12 mx-auto inline-flex items-center justify-center rounded-md focus-ring",
                       active
@@ -306,7 +312,16 @@ export const BackOfficeShell: React.FC = () => {
             type="button"
             onClick={() => setCollapsed((c) => !c)}
             className="m-2 h-9 inline-flex items-center justify-center gap-2 rounded-md bg-navy-800/60 hover:bg-navy-800 text-ink-inverse/80 hover:text-ink-inverse text-xs font-medium focus-ring"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={
+              collapsed
+                ? isAr
+                  ? "توسيع الشريط الجانبي"
+                  : "Expand sidebar"
+                : isAr
+                  ? "طي الشريط الجانبي"
+                  : "Collapse sidebar"
+            }
+            aria-expanded={!collapsed}
           >
             {collapsed ? (
               <ChevronsRight size={16} className="rtl-flip" />
@@ -319,7 +334,7 @@ export const BackOfficeShell: React.FC = () => {
           </button>
         </aside>
 
-        <main className="flex-1 min-w-0">
+        <main id="main-content" tabIndex={-1} className="flex-1 min-w-0 focus:outline-none">
           <div className="p-6">
             <Outlet />
           </div>
