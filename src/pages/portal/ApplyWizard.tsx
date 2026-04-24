@@ -692,12 +692,10 @@ const Step5: React.FC<{
             </Alert>
           ) : (
             <UAEPassButton
-              type="button"
               disabled={!allChecked}
               onClick={() => setSigning(true)}
-            >
-              {isAr ? "وقّع عبر الهوية الرقمية" : "Sign with UAE Pass"}
-            </UAEPassButton>
+              label={isAr ? "وقّع عبر الهوية الرقمية" : "Sign with UAE Pass"}
+            />
           )}
         </CardContent>
       </Card>
