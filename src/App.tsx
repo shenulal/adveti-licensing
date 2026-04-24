@@ -211,7 +211,7 @@ const App = () => (
               >
                 <Route path="/reports/operational" element={<Placeholder title="Operational Dashboard" />} />
                 <Route path="/reports/decisions" element={<DecisionsReport />} />
-                <Route path="/reports/exports" element={<ExportsReport />
+                <Route path="/reports/exports" element={<ExportsReport />} />
               </Route>
 
               {/* ===== Audit ===== */}
@@ -222,9 +222,9 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/audit/log" element={<Placeholder title="Audit Log Search" />} />
-                <Route path="/audit/consent" element={<Placeholder title="Consent Log" />} />
-                <Route path="/audit/dsr" element={<Placeholder title="DSR Register" />} />
+                <Route path="/audit/log" element={<AuditLog />} />
+                <Route path="/audit/consent" element={<ConsentLog />} />
+                <Route path="/audit/dsr" element={<DsrRegister />} />
               </Route>
 
               {/* ===== Errors ===== */}
