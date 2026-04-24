@@ -9,6 +9,7 @@ import {
 } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { Role, useAuth } from "@/auth/AuthContext";
+import { BACK_OFFICE_ROLES, getHomeForRole } from "@/auth/roleRoutes";
 import { GraduationCap, Lock, Mail, ShieldCheck, Globe2, Award, X, Users, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -116,10 +117,7 @@ export const DEMO_USERS: DemoUser[] = [
   },
 ];
 
-export const getLandingForRole = (role: Role): string => {
-  const found = DEMO_USERS.find((u) => u.role === role);
-  return found?.landing ?? "/portal/dashboard";
-};
+export const getLandingForRole = (role: Role): string => getHomeForRole(role);
 
 const Login: React.FC = () => {
   const { lang, setLang } = useLang();
@@ -202,9 +200,9 @@ const Login: React.FC = () => {
       setState((s) => ({ ...s, isLoading: false, error: null }));
 
       // Back-office roles route through MFA, applicant skips MFA
-      const isBackOffice = role !== "applicant";
+      const isBackOffice = BACK_OFFICE_ROLES.includes(role);
       const redirect = params.get("redirect");
-      const landing = getLandingForRole(role);
+      const landing = getHomeForRole(role);
       if (isBackOffice) {
         navigate(
           `/auth/mfa?role=${role}${redirect ? `&redirect=${encodeURIComponent(redirect)}` : ""}`,

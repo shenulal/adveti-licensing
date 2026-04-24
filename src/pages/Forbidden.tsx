@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Home, LogIn } from "lucide-react";
 import { Button, EmptyState, ForbiddenIllustration } from "@/components/adveti";
 import { useAuth, roleLabel } from "@/auth/AuthContext";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import { useLang } from "@/hooks/useLang";
 
 const Forbidden: React.FC = () => {
@@ -10,6 +11,7 @@ const Forbidden: React.FC = () => {
   const { lang } = useLang();
   const isAr = lang === "ar";
   const role = user?.role ?? "guest";
+  const homeHref = getHomeForRole(role);
 
   return (
     <main className="min-h-screen flex flex-col bg-surface-50">
@@ -44,9 +46,9 @@ const Forbidden: React.FC = () => {
           }
           action={
             <div className="flex gap-2 flex-wrap justify-center">
-              <Link to="/">
+              <Link to={homeHref}>
                 <Button variant="primary" iconStart={<Home size={14} />}>
-                  {isAr ? "العودة إلى الرئيسية" : "Back to home"}
+                  {isAr ? "العودة إلى صفحتك الرئيسية" : "Back to your home"}
                 </Button>
               </Link>
               <Link to="/auth/login">

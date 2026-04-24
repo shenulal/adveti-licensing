@@ -35,6 +35,7 @@ import {
 import { useLang } from "@/hooks/useLang";
 import { Role, roleLabel, useAuth } from "@/auth/AuthContext";
 import { SessionTimeoutModal } from "@/auth/SessionTimeoutModal";
+import { getBackOfficeNotificationTarget, getHomeForRole, isAdminRole } from "@/auth/roleRoutes";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -159,27 +160,7 @@ const ALL: NavItem[] = [
   },
 ];
 
-const dashboardForRole = (role: Role): string => {
-  switch (role) {
-    case "assessor":
-      return "/assessor/queue";
-    case "senior_assessor":
-      return "/senior/queue";
-    case "appeals_officer":
-      return "/assessor/queue";
-    case "finance_officer":
-      return "/finance/reconciliation";
-    case "content_editor":
-      return "/content/pages";
-    case "system_admin":
-    case "super_admin":
-      return "/admin/users";
-    case "auditor":
-      return "/audit/log";
-    default:
-      return "/";
-  }
-};
+const dashboardForRole = (role: Role): string => getHomeForRole(role);
 
 export const BackOfficeShell: React.FC = () => {
   const { lang, setLang } = useLang();
@@ -192,6 +173,8 @@ export const BackOfficeShell: React.FC = () => {
   const role = user?.role ?? "guest";
   const items = ALL.filter((i) => i.roles.includes(role));
   const dash = dashboardForRole(role);
+  const notificationTarget = getBackOfficeNotificationTarget(role);
+  const canManageSecurity = isAdminRole(role);
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-50 text-ink-primary">
@@ -224,7 +207,7 @@ export const BackOfficeShell: React.FC = () => {
 
           <LanguageToggle value={lang} onChange={setLang} />
 
-          <NotificationBell viewAllHref="/admin/notifications" />
+          <NotificationBell viewAllHref={notificationTarget} />
           <div className="relative">
             <button
               type="button"
@@ -250,21 +233,23 @@ export const BackOfficeShell: React.FC = () => {
                     </p>
                   </div>
                   <Link
-                    to="/portal/profile"
+                    to={dash}
                     onClick={() => setMenuOpen(false)}
                     className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-surface-100"
                   >
                     <Settings size={16} className="text-ink-secondary" />
-                    {isAr ? "الملف الشخصي" : "Profile"}
+                    {isAr ? "الصفحة الرئيسية" : "Role home"}
                   </Link>
-                  <Link
-                    to="/admin/security"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-surface-100"
-                  >
-                    <KeyRound size={16} className="text-ink-secondary" />
-                    {isAr ? "إعدادات MFA" : "MFA Settings"}
-                  </Link>
+                  {canManageSecurity && (
+                    <Link
+                      to="/admin/security"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-surface-100"
+                    >
+                      <KeyRound size={16} className="text-ink-secondary" />
+                      {isAr ? "إعدادات MFA" : "MFA Settings"}
+                    </Link>
+                  )}
                   <div className="my-1 border-t border-border-default" />
                   <button
                     type="button"

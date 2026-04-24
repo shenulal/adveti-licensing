@@ -2,12 +2,16 @@ import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, LifeBuoy, Search } from "lucide-react";
 import { Button, EmptyState, NotFoundIllustration } from "@/components/adveti";
+import { useAuth } from "@/auth/AuthContext";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import { useLang } from "@/hooks/useLang";
 
 const NotFound: React.FC = () => {
   const location = useLocation();
+  const { user } = useAuth();
   const { lang } = useLang();
   const isAr = lang === "ar";
+  const homeHref = getHomeForRole(user?.role ?? "guest");
 
   React.useEffect(() => {
     // eslint-disable-next-line no-console
@@ -42,9 +46,9 @@ const NotFound: React.FC = () => {
           }
           action={
             <div className="flex gap-2 flex-wrap justify-center">
-              <Link to="/portal/dashboard">
+              <Link to={homeHref}>
                 <Button variant="primary" iconStart={<Home size={14} />}>
-                  {isAr ? "اذهب إلى لوحة التحكم" : "Go to dashboard"}
+                  {isAr ? "اذهب إلى صفحتك الرئيسية" : "Go to your home"}
                 </Button>
               </Link>
               <Link to="/contact">

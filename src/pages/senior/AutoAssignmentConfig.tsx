@@ -10,13 +10,17 @@ import {
   CardTitle,
 } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
+import { useAuth } from "@/auth/AuthContext";
+import { isAdminRole } from "@/auth/roleRoutes";
 import { mockAssessors } from "@/lib/mockSenior";
 import { cn } from "@/lib/utils";
 
 const AutoAssignmentConfig: React.FC = () => {
   const { lang } = useLang();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const isAr = lang === "ar";
+  const canEditRules = isAdminRole(user?.role ?? "guest");
 
   const maxLoad = Math.max(...mockAssessors.map((a) => a.activeQueue));
   const method = "Load-Balanced";
@@ -42,12 +46,14 @@ const AutoAssignmentConfig: React.FC = () => {
               : "Read-only view — editing restricted to System Admin."}
           </p>
         </div>
-        <Button
-          variant="secondary"
-          onClick={() => navigate("/admin/config")}
-        >
-          {isAr ? "تحرير القواعد" : "Edit assignment rules"}
-        </Button>
+        {canEditRules && (
+          <Button
+            variant="secondary"
+            onClick={() => navigate("/admin/config")}
+          >
+            {isAr ? "تحرير القواعد" : "Edit assignment rules"}
+          </Button>
+        )}
       </header>
 
       <div className="grid lg:grid-cols-3 gap-4">

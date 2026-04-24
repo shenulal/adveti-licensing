@@ -4,6 +4,7 @@ import { ToastProvider } from "@/components/adveti";
 import { LangProvider } from "@/hooks/useLang";
 import { AuthProvider } from "@/auth/AuthContext";
 import { RoleGuard } from "@/auth/RoleGuard";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import PublicShell from "@/shells/PublicShell";
 import PortalShell from "@/shells/PortalShell";
 import BackOfficeShell from "@/shells/BackOfficeShell";

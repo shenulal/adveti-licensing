@@ -8,7 +8,7 @@ import {
 import { AuthLayout } from "@/shells/AuthLayout";
 import { useLang } from "@/hooks/useLang";
 import { Role, useAuth } from "@/auth/AuthContext";
-import { getLandingForRole } from "@/pages/auth/Login";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import { ArrowLeft, ShieldCheck, Smartphone, KeyRound } from "lucide-react";
 
 type Method = "totp" | "sms";
@@ -56,7 +56,7 @@ const Mfa: React.FC = () => {
       const redirect = params.get("redirect");
       const roleParam = params.get("role") as Role | null;
       const effectiveRole = roleParam ?? user?.role ?? "applicant";
-      const fallback = getLandingForRole(effectiveRole);
+      const fallback = getHomeForRole(effectiveRole);
       navigate(redirect ?? fallback, { replace: true });
     }, 600);
   };
