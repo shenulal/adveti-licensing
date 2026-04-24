@@ -202,7 +202,7 @@ const ApproveOverride: React.FC = () => {
           <Card variant="government">
             <CardHeader>
               <CardTitle className="text-base">
-                {isAr ? r("Application", "الطلب") : "Application"}
+                {isAr ? "الطلب" : "Application"}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
@@ -546,8 +546,5 @@ const ApproveOverride: React.FC = () => {
     </div>
   );
 };
-
-// helper to satisfy literal jsx fragment in EN/AR
-const r = (en: string, _ar: string) => en;
 
 export default ApproveOverride;
