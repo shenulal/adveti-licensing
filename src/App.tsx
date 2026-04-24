@@ -26,6 +26,18 @@ import Welcome from "@/pages/auth/Welcome";
 import Forbidden from "@/pages/Forbidden";
 import NotFound from "./pages/NotFound";
 import Placeholder from "@/pages/Placeholder";
+import Dashboard from "@/pages/portal/Dashboard";
+import Apply from "@/pages/portal/Apply";
+import ApplyWizard from "@/pages/portal/ApplyWizard";
+import ApplicationsList from "@/pages/portal/ApplicationsList";
+import ApplicationDetail from "@/pages/portal/ApplicationDetail";
+import Documents from "@/pages/portal/Documents";
+import Payment from "@/pages/portal/Payment";
+import Receipt from "@/pages/portal/Receipt";
+import Certificate from "@/pages/portal/Certificate";
+import Renew from "@/pages/portal/Renew";
+import Profile from "@/pages/portal/Profile";
+import PortalNotifications from "@/pages/portal/Notifications";
 
 const queryClient = new QueryClient();
 
@@ -67,17 +79,18 @@ const App = () => (
                 }
               >
                 <Route path="/portal" element={<Navigate to="/portal/dashboard" replace />} />
-                <Route path="/portal/dashboard" element={<Placeholder title="Applicant Dashboard" />} />
-                <Route path="/portal/apply" element={<Placeholder title="Start New Application" />} />
-                <Route path="/portal/apply/:id/step/:n" element={<Placeholder title="Application Wizard" />} />
-                <Route path="/portal/applications" element={<Placeholder title="Application History" />} />
-                <Route path="/portal/applications/:id" element={<Placeholder title="Application Detail" />} />
-                <Route path="/portal/applications/:id/documents" element={<Placeholder title="Document Upload" />} />
-                <Route path="/portal/applications/:id/payment" element={<Placeholder title="Payment" />} />
-                <Route path="/portal/applications/:id/payment/receipt" element={<Placeholder title="Payment Receipt" />} />
-                <Route path="/portal/certificate/:id" element={<Placeholder title="Certificate Download" />} />
-                <Route path="/portal/profile" element={<Placeholder title="Profile Settings" />} />
-                <Route path="/portal/notifications" element={<Placeholder title="Notification Centre" />} />
+                <Route path="/portal/dashboard" element={<Dashboard />} />
+                <Route path="/portal/apply" element={<Apply />} />
+                <Route path="/portal/apply/:id/step/:n" element={<ApplyWizard />} />
+                <Route path="/portal/applications" element={<ApplicationsList />} />
+                <Route path="/portal/applications/:id" element={<ApplicationDetail />} />
+                <Route path="/portal/applications/:id/documents" element={<Documents />} />
+                <Route path="/portal/applications/:id/payment" element={<Payment />} />
+                <Route path="/portal/applications/:id/payment/receipt" element={<Receipt />} />
+                <Route path="/portal/applications/:id/renew" element={<Renew />} />
+                <Route path="/portal/certificate/:id" element={<Certificate />} />
+                <Route path="/portal/profile" element={<Profile />} />
+                <Route path="/portal/notifications" element={<PortalNotifications />} />
               </Route>
 
               {/* ===== Assessor ===== */}
