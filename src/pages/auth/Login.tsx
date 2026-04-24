@@ -156,6 +156,10 @@ const Login: React.FC = () => {
   };
 
   const inferRole = (email: string): Role => {
+    const match = DEMO_USERS.find(
+      (u) => u.email.toLowerCase() === email.toLowerCase().trim(),
+    );
+    if (match) return match.role;
     const local = email.toLowerCase();
     if (local.startsWith("assessor")) return "assessor";
     if (local.startsWith("senior")) return "senior_assessor";
@@ -197,18 +201,29 @@ const Login: React.FC = () => {
       setRole(role);
       setState((s) => ({ ...s, isLoading: false, error: null }));
 
-      // Back-office roles route through MFA
+      // Back-office roles route through MFA, applicant skips MFA
       const isBackOffice = role !== "applicant";
       const redirect = params.get("redirect");
+      const landing = getLandingForRole(role);
       if (isBackOffice) {
         navigate(
-          `/auth/mfa${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ""}`,
+          `/auth/mfa?role=${role}${redirect ? `&redirect=${encodeURIComponent(redirect)}` : ""}`,
           { replace: true },
         );
       } else {
-        navigate(redirect ?? "/portal/dashboard", { replace: true });
+        navigate(redirect ?? landing, { replace: true });
       }
     }, 700);
+  };
+
+  const fillDemo = (user: DemoUser) => {
+    setState((s) => ({
+      ...s,
+      method: "email",
+      email: user.email,
+      password: user.password,
+      error: null,
+    }));
   };
 
   return (
