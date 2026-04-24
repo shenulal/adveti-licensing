@@ -1,12 +1,14 @@
 import * as React from "react";
-import { CheckCircle2, Inbox, Search, ShieldCheck, XCircle } from "lucide-react";
+import { CheckCircle2, Search, ShieldCheck, XCircle } from "lucide-react";
 import {
   Badge,
   Button,
   Card,
   CardContent,
+  EmptyState,
   Input,
   Modal,
+  ReceiptCheckIllustration,
   Select,
   Table,
   useToast,
@@ -349,15 +351,16 @@ const Refunds: React.FC = () => {
 
       {filtered.length === 0 ? (
         <Card variant="bordered">
-          <CardContent className="py-16 flex flex-col items-center text-center gap-3">
-            <div className="h-16 w-16 rounded-full bg-surface-100 inline-flex items-center justify-center">
-              <Inbox size={28} className="text-ink-muted" />
-            </div>
-            <h2 className="text-lg font-semibold text-ink-primary">
-              {isAr
-                ? "لا توجد طلبات استرداد"
-                : "No refund requests in this view"}
-            </h2>
+          <CardContent>
+            <EmptyState
+              illustration={<ReceiptCheckIllustration />}
+              title={isAr ? "لا مبالغ مستردة معلقة" : "No pending refunds"}
+              description={
+                isAr
+                  ? "كل طلبات الاسترداد تمت معالجتها. ستظهر الطلبات الجديدة هنا فور تقديمها."
+                  : "All refund requests are up to date. New requests will appear here as soon as they're submitted."
+              }
+            />
           </CardContent>
         </Card>
       ) : (
