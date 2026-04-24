@@ -9,6 +9,11 @@ import PortalShell from "@/shells/PortalShell";
 import BackOfficeShell from "@/shells/BackOfficeShell";
 import Home from "@/pages/public/Home";
 import Login from "@/pages/auth/Login";
+import Mfa from "@/pages/auth/Mfa";
+import ResetPassword from "@/pages/auth/ResetPassword";
+import SetNewPassword from "@/pages/auth/SetNewPassword";
+import Lockout from "@/pages/auth/Lockout";
+import Welcome from "@/pages/auth/Welcome";
 import Forbidden from "@/pages/Forbidden";
 import NotFound from "./pages/NotFound";
 import Placeholder from "@/pages/Placeholder";
@@ -38,11 +43,11 @@ const App = () => (
 
               {/* ===== Auth (standalone, no shell) ===== */}
               <Route path="/auth/login" element={<Login />} />
-              <Route path="/auth/mfa" element={<Placeholder title="MFA Verification" />} />
-              <Route path="/auth/reset-password" element={<Placeholder title="Reset Password" />} />
-              <Route path="/auth/reset-password/:token" element={<Placeholder title="Set New Password" />} />
-              <Route path="/auth/lockout" element={<Placeholder title="Account Locked" />} />
-              <Route path="/auth/welcome" element={<Placeholder title="Welcome" />} />
+              <Route path="/auth/mfa" element={<Mfa />} />
+              <Route path="/auth/reset-password" element={<ResetPassword />} />
+              <Route path="/auth/reset-password/:token" element={<SetNewPassword />} />
+              <Route path="/auth/lockout" element={<Lockout />} />
+              <Route path="/auth/welcome" element={<Welcome />} />
 
               {/* ===== Applicant portal ===== */}
               <Route
