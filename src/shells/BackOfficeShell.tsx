@@ -47,28 +47,52 @@ interface NavItem {
 }
 
 const ALL: NavItem[] = [
+  // Assessor / appeals dashboard → queue
   {
     to: "/assessor/queue",
     en: "Dashboard",
     ar: "لوحة التحكم",
     icon: <LayoutDashboard size={18} />,
-    roles: [
-      "assessor",
-      "senior_assessor",
-      "appeals_officer",
-      "finance_officer",
-      "content_editor",
-      "system_admin",
-      "super_admin",
-      "auditor",
-    ],
+    roles: ["assessor", "appeals_officer"],
+  },
+  // Senior assessor dashboard → approval queue
+  {
+    to: "/senior/queue",
+    en: "Dashboard",
+    ar: "لوحة التحكم",
+    icon: <LayoutDashboard size={18} />,
+    roles: ["senior_assessor"],
+  },
+  // Finance dashboard
+  {
+    to: "/finance/reconciliation",
+    en: "Dashboard",
+    ar: "لوحة التحكم",
+    icon: <LayoutDashboard size={18} />,
+    roles: ["finance_officer"],
+  },
+  // Content editor dashboard
+  {
+    to: "/content/templates",
+    en: "Dashboard",
+    ar: "لوحة التحكم",
+    icon: <LayoutDashboard size={18} />,
+    roles: ["content_editor"],
+  },
+  // Admins / auditor → operational reports dashboard
+  {
+    to: "/reports/operational",
+    en: "Dashboard",
+    ar: "لوحة التحكم",
+    icon: <LayoutDashboard size={18} />,
+    roles: ["system_admin", "super_admin", "auditor"],
   },
   {
     to: "/assessor/queue",
     en: "Applications",
     ar: "الطلبات",
     icon: <FileText size={18} />,
-    roles: ["assessor", "senior_assessor", "appeals_officer"],
+    roles: ["assessor", "senior_assessor", "appeals_officer", "system_admin", "super_admin"],
     badge: <Badge variant="gold">12</Badge>,
   },
   {
