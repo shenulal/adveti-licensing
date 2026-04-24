@@ -58,6 +58,10 @@ import DecisionsReport from "@/pages/audit/DecisionsReport";
 import ExportsReport from "@/pages/audit/ExportsReport";
 import ContentTemplates from "@/pages/content/Templates";
 import OperationalDashboard from "@/pages/reports/OperationalDashboard";
+import AdminUsers from "@/pages/admin/Users";
+import AdminRoles from "@/pages/admin/Roles";
+import AdminCategories from "@/pages/admin/Categories";
+import AdminRubrics from "@/pages/admin/Rubrics";
 
 const queryClient = new QueryClient();
 
@@ -116,7 +120,7 @@ const App = () => (
               {/* ===== Assessor ===== */}
               <Route
                 element={
-                  <RoleGuard allowedRoles={["assessor", "senior_assessor", "appeals_officer"]}>
+                  <RoleGuard allowedRoles={["assessor", "senior_assessor", "appeals_officer", "system_admin", "super_admin"]}>
                     <BackOfficeShell />
                   </RoleGuard>
                 }
@@ -164,10 +168,10 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/admin/users" element={<Placeholder title="User Management" />} />
-                <Route path="/admin/roles" element={<Placeholder title="Role & Permission Editor" />} />
-                <Route path="/admin/categories" element={<Placeholder title="Licence Category Config" />} />
-                <Route path="/admin/rubrics" element={<Placeholder title="Rubric Builder" />} />
+                <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/roles" element={<AdminRoles />} />
+                <Route path="/admin/categories" element={<AdminCategories />} />
+                <Route path="/admin/rubrics" element={<AdminRubrics />} />
                 <Route path="/admin/config" element={<Placeholder title="System Configuration" />} />
                 <Route path="/admin/flags" element={<Placeholder title="Feature Flags" />} />
                 <Route path="/admin/calendar" element={<Placeholder title="Working Calendar" />} />
