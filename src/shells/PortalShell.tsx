@@ -10,7 +10,7 @@ import {
   Settings,
   User,
 } from "lucide-react";
-import { Avatar, Badge, LanguageToggle, NotificationBell } from "@/components/adveti";
+import { Avatar, Badge, LanguageToggle, NotificationBell, SkipLink } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { useAuth } from "@/auth/AuthContext";
 import { SessionTimeoutModal } from "@/auth/SessionTimeoutModal";
@@ -174,7 +174,10 @@ export const PortalShell: React.FC = () => {
         </div>
       </header>
 
-      <div className="bg-surface-0 border-b border-border-default">
+      <nav
+        aria-label={isAr ? "أقسام البوابة" : "Portal sections"}
+        className="bg-surface-0 border-b border-border-default"
+      >
         <div className="container flex items-center gap-1 overflow-x-auto">
           {TABS.map((tab) => (
             <NavLink
@@ -193,13 +196,13 @@ export const PortalShell: React.FC = () => {
             </NavLink>
           ))}
         </div>
-      </div>
+      </nav>
 
       <div className="container py-3">
         <Crumbs />
       </div>
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         <div className="container pb-10">
           <Outlet />
         </div>
