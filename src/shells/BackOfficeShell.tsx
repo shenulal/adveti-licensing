@@ -32,6 +32,7 @@ import {
 } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { Role, roleLabel, useAuth } from "@/auth/AuthContext";
+import { SessionTimeoutModal } from "@/auth/SessionTimeoutModal";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -331,6 +332,7 @@ export const BackOfficeShell: React.FC = () => {
           </div>
         </main>
       </div>
+      <SessionTimeoutModal />
     </div>
   );
 };
