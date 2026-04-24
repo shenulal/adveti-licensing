@@ -45,7 +45,7 @@ export const SidebarNavItem = React.forwardRef<
     );
 
     const cls = cn(
-      "group relative flex items-center gap-3 ps-4 pe-3 py-2.5 rounded-md text-sm font-medium transition-colors duration-fast focus-ring",
+      "group relative flex w-full items-center gap-3 ps-4 pe-3 py-2.5 rounded-md text-start text-sm font-medium transition-colors duration-fast focus-ring",
       active
         ? "bg-navy-800 text-ink-inverse"
         : "text-ink-inverse/80 hover:bg-navy-800/60 hover:text-ink-inverse",
