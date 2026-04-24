@@ -8,6 +8,15 @@ import PublicShell from "@/shells/PublicShell";
 import PortalShell from "@/shells/PortalShell";
 import BackOfficeShell from "@/shells/BackOfficeShell";
 import Home from "@/pages/public/Home";
+import About from "@/pages/public/About";
+import Eligibility from "@/pages/public/Eligibility";
+import Fees from "@/pages/public/Fees";
+import Contact from "@/pages/public/Contact";
+import Verify from "@/pages/public/Verify";
+import Privacy from "@/pages/public/Privacy";
+import Terms from "@/pages/public/Terms";
+import RefundPolicy from "@/pages/public/RefundPolicy";
+import Accessibility from "@/pages/public/Accessibility";
 import Login from "@/pages/auth/Login";
 import Mfa from "@/pages/auth/Mfa";
 import ResetPassword from "@/pages/auth/ResetPassword";
@@ -30,15 +39,15 @@ const App = () => (
               {/* ===== Public marketing shell ===== */}
               <Route element={<PublicShell />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/about" element={<Placeholder title="About the Licence" />} />
-                <Route path="/eligibility" element={<Placeholder title="Eligibility" />} />
-                <Route path="/fees" element={<Placeholder title="Fees & Process" />} />
-                <Route path="/contact" element={<Placeholder title="Contact" />} />
-                <Route path="/verify" element={<Placeholder title="QR Licence Verification" />} />
-                <Route path="/privacy" element={<Placeholder title="Privacy Policy" />} />
-                <Route path="/terms" element={<Placeholder title="Terms & Conditions" />} />
-                <Route path="/refund-policy" element={<Placeholder title="Refund Policy" />} />
-                <Route path="/accessibility" element={<Placeholder title="Accessibility Statement" />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/eligibility" element={<Eligibility />} />
+                <Route path="/fees" element={<Fees />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/verify" element={<Verify />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/refund-policy" element={<RefundPolicy />} />
+                <Route path="/accessibility" element={<Accessibility />} />
               </Route>
 
               {/* ===== Auth (standalone, no shell) ===== */}
