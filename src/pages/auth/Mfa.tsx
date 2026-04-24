@@ -7,7 +7,8 @@ import {
 } from "@/components/adveti";
 import { AuthLayout } from "@/shells/AuthLayout";
 import { useLang } from "@/hooks/useLang";
-import { useAuth } from "@/auth/AuthContext";
+import { Role, useAuth } from "@/auth/AuthContext";
+import { getLandingForRole } from "@/pages/auth/Login";
 import { ArrowLeft, ShieldCheck, Smartphone, KeyRound } from "lucide-react";
 
 type Method = "totp" | "sms";
@@ -53,8 +54,9 @@ const Mfa: React.FC = () => {
         return;
       }
       const redirect = params.get("redirect");
-      const fallback =
-        user?.role === "applicant" ? "/portal/dashboard" : "/assessor/queue";
+      const roleParam = params.get("role") as Role | null;
+      const effectiveRole = roleParam ?? user?.role ?? "applicant";
+      const fallback = getLandingForRole(effectiveRole);
       navigate(redirect ?? fallback, { replace: true });
     }, 600);
   };
