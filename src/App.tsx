@@ -58,6 +58,10 @@ import DecisionsReport from "@/pages/audit/DecisionsReport";
 import ExportsReport from "@/pages/audit/ExportsReport";
 import ContentTemplates from "@/pages/content/Templates";
 import OperationalDashboard from "@/pages/reports/OperationalDashboard";
+import AdminUsers from "@/pages/admin/Users";
+import AdminRoles from "@/pages/admin/Roles";
+import AdminCategories from "@/pages/admin/Categories";
+import AdminRubrics from "@/pages/admin/Rubrics";
 
 const queryClient = new QueryClient();
 
