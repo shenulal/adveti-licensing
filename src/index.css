@@ -40,8 +40,8 @@
 
     /* ===== Text ===== */
     --text-primary: 222 65% 14%;
-    --text-secondary: 220 14% 35%;
-    --text-muted: 220 9% 64%;
+    --text-secondary: 220 16% 30%;   /* darkened from 35% for >7:1 on white */
+    --text-muted: 220 12% 42%;       /* darkened from 64% to meet 4.5:1 (#5C6473) */
     --text-inverse: 0 0% 100%;
 
     /* ===== Border ===== */
