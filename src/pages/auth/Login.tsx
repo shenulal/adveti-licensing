@@ -436,4 +436,132 @@ const Login: React.FC = () => {
   );
 };
 
+// =====================================================================
+// Demo credentials panel — visible on the login page so reviewers can
+// log in as any role with one click. Hide via VITE_HIDE_DEMO_CREDENTIALS.
+// =====================================================================
+
+interface DemoCredentialsPanelProps {
+  isAr: boolean;
+  onSelect: (user: DemoUser) => void;
+}
+
+const DemoCredentialsPanel: React.FC<DemoCredentialsPanelProps> = ({
+  isAr,
+  onSelect,
+}) => {
+  const [open, setOpen] = React.useState(true);
+  const [copied, setCopied] = React.useState<string | null>(null);
+
+  if (import.meta.env.VITE_HIDE_DEMO_CREDENTIALS === "true") return null;
+
+  const copy = (text: string, key: string) => {
+    void navigator.clipboard?.writeText(text);
+    setCopied(key);
+    window.setTimeout(() => setCopied((c) => (c === key ? null : c)), 1500);
+  };
+
+  return (
+    <div className="mt-8 rounded-xl border border-gold-500/40 bg-gold-500/5 overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between gap-3 px-4 py-3 text-start hover:bg-gold-500/10 transition-colors"
+        aria-expanded={open}
+      >
+        <span className="flex items-center gap-2.5">
+          <span className="h-7 w-7 rounded-md bg-navy-900 text-gold-400 inline-flex items-center justify-center shrink-0">
+            <Users size={14} />
+          </span>
+          <span className="text-start">
+            <span className="block text-sm font-bold text-navy-900">
+              {isAr ? "بيانات الاعتماد التجريبية" : "Demo credentials"}
+            </span>
+            <span className="block text-[11px] text-ink-secondary">
+              {isAr
+                ? "اختر أي دور للدخول الفوري — كلمة المرور موحّدة"
+                : "Pick any role to sign in instantly — password is shared"}
+            </span>
+          </span>
+        </span>
+        <span className="text-[11px] font-semibold text-navy-900 uppercase tracking-wider shrink-0">
+          {open ? (isAr ? "إخفاء" : "Hide") : (isAr ? "عرض" : "Show")}
+        </span>
+      </button>
+
+      {open && (
+        <div className="border-t border-gold-500/30 bg-surface-0">
+          <div className="flex items-center justify-between gap-3 px-4 py-2 bg-surface-50 border-b border-border-default text-[11px] text-ink-secondary">
+            <span className="font-semibold uppercase tracking-wider">
+              {isAr ? "كلمة المرور للجميع" : "Password (all accounts)"}
+            </span>
+            <button
+              type="button"
+              onClick={() => copy("Demo@2026", "global-pwd")}
+              className="inline-flex items-center gap-1.5 font-mono text-navy-900 font-semibold hover:text-gold-600"
+              dir="ltr"
+            >
+              Demo@2026
+              {copied === "global-pwd" ? (
+                <Check size={12} className="text-success-600" />
+              ) : (
+                <Copy size={12} />
+              )}
+            </button>
+          </div>
+
+          <ul className="max-h-[280px] overflow-y-auto divide-y divide-border-default">
+            {DEMO_USERS.map((u) => (
+              <li key={u.role}>
+                <div className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-50 transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-semibold text-ink-primary truncate">
+                        {isAr ? u.nameAr : u.nameEn}
+                      </span>
+                      <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-navy-900/5 text-navy-900 font-semibold whitespace-nowrap">
+                        {isAr ? u.labelAr : u.labelEn}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => copy(u.email, `email-${u.role}`)}
+                      className="mt-0.5 inline-flex items-center gap-1.5 text-[11px] font-mono text-ink-secondary hover:text-navy-900"
+                      dir="ltr"
+                    >
+                      {u.email}
+                      {copied === `email-${u.role}` ? (
+                        <Check size={11} className="text-success-600" />
+                      ) : (
+                        <Copy size={11} />
+                      )}
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onSelect(u)}
+                    className={cn(
+                      "shrink-0 text-xs font-semibold px-3 py-1.5 rounded-md",
+                      "bg-navy-900 text-ink-inverse hover:bg-navy-800",
+                      "transition-colors",
+                    )}
+                  >
+                    {isAr ? "استخدم" : "Use"}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <p className="px-4 py-2.5 text-[11px] text-ink-secondary bg-surface-50 border-t border-border-default leading-relaxed">
+            {isAr
+              ? "بيانات تجريبية للاستعراض فقط. تجاوز التحقق بخطوتين بأي رمز يختلف عن 000000 أو 111111."
+              : "Demo accounts for review only. Bypass MFA with any 6-digit code other than 000000 or 111111."}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default Login;
