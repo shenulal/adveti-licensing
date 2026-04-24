@@ -9,7 +9,7 @@ import {
 } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { Role, useAuth } from "@/auth/AuthContext";
-import { GraduationCap, Lock, Mail, ShieldCheck, Globe2, Award, X } from "lucide-react";
+import { GraduationCap, Lock, Mail, ShieldCheck, Globe2, Award, X, Users, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LoginState {
@@ -21,6 +21,105 @@ interface LoginState {
 }
 
 const ATTEMPTS_LIMIT = 5;
+
+interface DemoUser {
+  role: Role;
+  email: string;
+  password: string;
+  nameEn: string;
+  nameAr: string;
+  labelEn: string;
+  labelAr: string;
+  landing: string;
+}
+
+export const DEMO_USERS: DemoUser[] = [
+  {
+    role: "applicant",
+    email: "applicant@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Layla Hassan",
+    nameAr: "ليلى حسن",
+    labelEn: "Applicant",
+    labelAr: "متقدّم",
+    landing: "/portal/dashboard",
+  },
+  {
+    role: "assessor",
+    email: "assessor@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Omar Al Marzooqi",
+    nameAr: "عمر المرزوقي",
+    labelEn: "Assessor",
+    labelAr: "مقيّم",
+    landing: "/assessor/queue",
+  },
+  {
+    role: "senior_assessor",
+    email: "senior@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Sara Al Suwaidi",
+    nameAr: "سارة السويدي",
+    labelEn: "Senior Assessor",
+    labelAr: "مقيّم أول",
+    landing: "/senior/queue",
+  },
+  {
+    role: "finance_officer",
+    email: "finance@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Khalid Al Hosani",
+    nameAr: "خالد الحوسني",
+    labelEn: "Finance Officer",
+    labelAr: "مسؤول مالي",
+    landing: "/finance/reconciliation",
+  },
+  {
+    role: "content_editor",
+    email: "content@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Noura Al Ali",
+    nameAr: "نورة العلي",
+    labelEn: "Content Editor",
+    labelAr: "محرّر المحتوى",
+    landing: "/content/templates",
+  },
+  {
+    role: "system_admin",
+    email: "admin@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Aisha Al Mansoori",
+    nameAr: "عائشة المنصوري",
+    labelEn: "System Admin",
+    labelAr: "مدير النظام",
+    landing: "/admin/users",
+  },
+  {
+    role: "super_admin",
+    email: "super@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Hamad Al Nuaimi",
+    nameAr: "حمد النعيمي",
+    labelEn: "Super Admin",
+    labelAr: "المدير العام",
+    landing: "/admin/users",
+  },
+  {
+    role: "auditor",
+    email: "auditor@adveti.ae",
+    password: "Demo@2026",
+    nameEn: "Mohammed Al Shamsi",
+    nameAr: "محمد الشامسي",
+    labelEn: "Auditor",
+    labelAr: "مدقّق",
+    landing: "/audit/log",
+  },
+];
+
+export const getLandingForRole = (role: Role): string => {
+  const found = DEMO_USERS.find((u) => u.role === role);
+  return found?.landing ?? "/portal/dashboard";
+};
 
 const Login: React.FC = () => {
   const { lang, setLang } = useLang();
