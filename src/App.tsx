@@ -116,7 +116,7 @@ const App = () => (
               {/* ===== Assessor ===== */}
               <Route
                 element={
-                  <RoleGuard allowedRoles={["assessor", "senior_assessor", "appeals_officer"]}>
+                  <RoleGuard allowedRoles={["assessor", "senior_assessor", "appeals_officer", "system_admin", "super_admin"]}>
                     <BackOfficeShell />
                   </RoleGuard>
                 }
