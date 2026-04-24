@@ -1,96 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ADVETI Professional Licensing & Assessment Platform — Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* ===== Brand: Navy (authority) ===== */
+    --navy-950: 222 65% 14%;   /* #0D1B3E */
+    --navy-900: 224 65% 20%;   /* #112254 */
+    --navy-800: 220 60% 25%;   /* #1A3068 */
+    --navy-700: 224 70% 33%;   /* #1E3A8A */
+    --navy-600: 222 64% 40%;   /* #2547A8 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* ===== Brand: Gold (accreditation) ===== */
+    --gold-600: 41 88% 38%;    /* #B8860B */
+    --gold-500: 42 53% 54%;    /* #C9A84C */
+    --gold-400: 41 55% 61%;    /* #D4B562 */
+    --gold-300: 40 60% 78%;    /* #E8D5A3 */
+    --gold-100: 42 75% 94%;    /* #FBF5E6 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* ===== Surface ===== */
+    --surface-0: 0 0% 100%;       /* #FFFFFF */
+    --surface-50: 220 18% 97%;    /* #F7F8FA */
+    --surface-100: 224 24% 94%;   /* #EEF0F5 */
+    --surface-200: 222 22% 89%;   /* #DDE1EB */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* ===== Semantic ===== */
+    --success-600: 142 64% 24%;   /* #166534 */
+    --success-100: 138 76% 93%;   /* #DCFCE7 */
+    --warning-600: 28 79% 30%;    /* #92400E */
+    --warning-100: 48 96% 89%;    /* #FEF3C7 */
+    --danger-600: 0 70% 35%;      /* #991B1B */
+    --danger-100: 0 93% 94%;      /* #FEE2E2 */
+    --info-600: 224 76% 40%;      /* #1E40AF */
+    --info-100: 214 95% 93%;      /* #DBEAFE */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* ===== Text ===== */
+    --text-primary: 222 65% 14%;
+    --text-secondary: 220 14% 35%;
+    --text-muted: 220 9% 64%;
+    --text-inverse: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* ===== Border ===== */
+    --border-default: 222 22% 89%;
+    --border-strong: 220 9% 64%;
+    --border-focus: 220 60% 25%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    /* ===== Shadcn-compat token bridge (so primitives still resolve) ===== */
+    --background: var(--surface-50);
+    --foreground: var(--text-primary);
+    --card: var(--surface-0);
+    --card-foreground: var(--text-primary);
+    --popover: var(--surface-0);
+    --popover-foreground: var(--text-primary);
+    --primary: var(--navy-800);
+    --primary-foreground: var(--text-inverse);
+    --secondary: var(--surface-100);
+    --secondary-foreground: var(--text-primary);
+    --muted: var(--surface-100);
+    --muted-foreground: var(--text-secondary);
+    --accent: var(--gold-100);
+    --accent-foreground: var(--gold-600);
+    --destructive: var(--danger-600);
+    --destructive-foreground: var(--text-inverse);
+    --border: var(--border-default);
+    --input: var(--border-default);
+    --ring: var(--navy-800);
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* ===== Type scale (fluid) ===== */
+    --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+    --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+    --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+    --text-lg: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --text-xl: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+    --text-2xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --text-3xl: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
+    --text-4xl: clamp(1.75rem, 1.4rem + 1.75vw, 2.5rem);
+    --text-hero: clamp(2.5rem, 2rem + 2.5vw, 4rem);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* ===== Shadows (navy-tinted) ===== */
+    --shadow-sm: 0 1px 2px hsl(var(--navy-950) / 0.06);
+    --shadow-md: 0 4px 12px hsl(var(--navy-950) / 0.08);
+    --shadow-lg: 0 8px 24px hsl(var(--navy-950) / 0.12);
+    --shadow-xl: 0 16px 48px hsl(var(--navy-950) / 0.16);
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* ===== Motion ===== */
+    --duration-fast: 120ms;
+    --duration-normal: 220ms;
+    --duration-slow: 380ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* sidebar bridge */
+    --sidebar-background: var(--navy-900);
+    --sidebar-foreground: var(--text-inverse);
+    --sidebar-primary: var(--gold-500);
+    --sidebar-primary-foreground: var(--navy-950);
+    --sidebar-accent: var(--navy-800);
+    --sidebar-accent-foreground: var(--text-inverse);
+    --sidebar-border: var(--navy-800);
+    --sidebar-ring: var(--gold-500);
   }
 }
 
@@ -99,7 +111,47 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    font-family: var(--font-latin);
   }
+
+  html[lang="ar"],
+  html[dir="rtl"] {
+    font-family: var(--font-arabic);
+    font-variant-numeric: tabular-nums;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01", "ss03";
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--border-focus));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* RTL chevron / arrow mirroring */
+  [dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
+}
+
+@layer components {
+  .gov-stripe {
+    box-shadow: inset 4px 0 0 hsl(var(--navy-800));
+  }
+  [dir="rtl"] .gov-stripe {
+    box-shadow: inset -4px 0 0 hsl(var(--navy-800));
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--border-focus))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--surface-0))];
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
 }
