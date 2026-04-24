@@ -119,6 +119,10 @@
   html[dir="rtl"] {
     font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
     font-variant-numeric: tabular-nums;
+    /* Arabic script needs more leading and must not break mid-word */
+    line-height: 1.7;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   body {
@@ -130,11 +134,30 @@
     outline: 2px solid hsl(var(--border-focus));
     outline-offset: 2px;
     border-radius: 2px;
+    box-shadow: 0 0 0 4px hsl(var(--surface-0));
   }
 
   /* RTL chevron / arrow mirroring */
   [dir="rtl"] .rtl-flip {
     transform: scaleX(-1);
+  }
+
+  /* Force LTR direction for technical strings (IDs, IPs, phone, dates) */
+  .ltr-numeric {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+}
+
+/* WCAG 2.1: respect prefers-reduced-motion across the board */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
