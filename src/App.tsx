@@ -51,6 +51,11 @@ import FinanceReconciliation from "@/pages/finance/Reconciliation";
 import FinanceRefunds from "@/pages/finance/Refunds";
 import FinanceReports from "@/pages/finance/Reports";
 import FinanceVatReturn from "@/pages/finance/VatReturn";
+import AuditLog from "@/pages/audit/AuditLog";
+import ConsentLog from "@/pages/audit/ConsentLog";
+import DsrRegister from "@/pages/audit/DsrRegister";
+import DecisionsReport from "@/pages/audit/DecisionsReport";
+import ExportsReport from "@/pages/audit/ExportsReport";
 
 const queryClient = new QueryClient();
 
@@ -205,8 +210,8 @@ const App = () => (
                 }
               >
                 <Route path="/reports/operational" element={<Placeholder title="Operational Dashboard" />} />
-                <Route path="/reports/decisions" element={<Placeholder title="Decision Ratio Report" />} />
-                <Route path="/reports/exports" element={<Placeholder title="Data Export" />} />
+                <Route path="/reports/decisions" element={<DecisionsReport />} />
+                <Route path="/reports/exports" element={<ExportsReport />
               </Route>
 
               {/* ===== Audit ===== */}
