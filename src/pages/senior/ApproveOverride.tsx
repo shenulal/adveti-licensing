@@ -56,7 +56,7 @@ const ApproveOverride: React.FC = () => {
   const { lang } = useLang();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { push } = useToast();
   const isAr = lang === "ar";
 
   const item = getApprovalItem(id);
@@ -109,9 +109,9 @@ const ApproveOverride: React.FC = () => {
       },
     };
     if (outcome) {
-      toast({
+      push({
         title: isAr ? labels[outcome].ar : labels[outcome].en,
-        variant: outcome === "OverrideReject" ? "danger" : "success",
+        type: outcome === "OverrideReject" ? "error" : "success",
       });
     }
     if (outcome === "Escalate") {

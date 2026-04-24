@@ -41,7 +41,7 @@ const Committee: React.FC = () => {
   const { lang } = useLang();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { push } = useToast();
   const isAr = lang === "ar";
   const ChevronEnd = isAr ? ChevronLeft : ChevronRight;
 
@@ -107,11 +107,11 @@ const Committee: React.FC = () => {
   };
 
   const finalize = () => {
-    toast({
+    push({
       title: isAr
         ? "تم إنهاء قرار اللجنة"
         : "Committee decision finalised",
-      variant: "success",
+      type: "success",
     });
     navigate("/senior/queue");
   };

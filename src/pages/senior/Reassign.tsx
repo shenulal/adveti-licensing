@@ -24,7 +24,7 @@ const Reassign: React.FC = () => {
   const { id = "APP-2026-00042" } = useParams();
   const { lang } = useLang();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { push } = useToast();
   const isAr = lang === "ar";
   const ChevronEnd = isAr ? ChevronLeft : ChevronRight;
 
@@ -40,11 +40,11 @@ const Reassign: React.FC = () => {
 
   const handleConfirm = () => {
     setConfirmOpen(false);
-    toast({
+    push({
       title: isAr
         ? `تم نقل الحالة إلى ${newAssignee?.nameAr}`
         : `Case reassigned to ${newAssignee?.nameEn}`,
-      variant: "success",
+      type: "success",
     });
     navigate("/senior/queue");
   };
