@@ -13,3 +13,4 @@ export * from "./SidebarNavItem";
 export * from "./LanguageToggle";
 export * from "./UAEPassButton";
 export * from "./OtpInput";
+export * from "./NotificationBell";

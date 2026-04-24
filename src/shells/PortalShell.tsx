@@ -10,7 +10,7 @@ import {
   Settings,
   User,
 } from "lucide-react";
-import { Avatar, Badge, LanguageToggle } from "@/components/adveti";
+import { Avatar, Badge, LanguageToggle, NotificationBell } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { useAuth } from "@/auth/AuthContext";
 import { SessionTimeoutModal } from "@/auth/SessionTimeoutModal";
@@ -113,16 +113,7 @@ export const PortalShell: React.FC = () => {
 
           <LanguageToggle value={lang} onChange={setLang} />
 
-          <Link
-            to="/portal/notifications"
-            className="relative h-10 w-10 inline-flex items-center justify-center rounded-md hover:bg-surface-100 focus-ring"
-            aria-label="Notifications"
-          >
-            <Bell size={18} className="text-ink-secondary" />
-            <span className="absolute top-1.5 end-1.5 h-4 min-w-[16px] px-1 rounded-full bg-danger-600 text-ink-inverse text-[10px] font-bold inline-flex items-center justify-center">
-              3
-            </span>
-          </Link>
+          <NotificationBell viewAllHref="/portal/notifications" />
 
           <div className="relative">
             <button

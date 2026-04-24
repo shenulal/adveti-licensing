@@ -4,9 +4,55 @@ import { Lock, ShieldCheck } from "lucide-react";
 import { Button, Card, CardContent, Input, Select } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { mockApplicantProfile } from "@/lib/mockApplicant";
+import { cn } from "@/lib/utils";
 
-const CHANNELS = ["email", "sms", "in_app"] as const;
-const TOPICS = ["app_updates", "payment", "renewal", "system"] as const;
+type Channel = "email" | "sms" | "in_app";
+
+interface PrefRow {
+  key: string;
+  en: string;
+  ar: string;
+  channels: Partial<Record<Channel, "default-on" | "default-off" | "locked-on" | "n/a">>;
+}
+
+const ROWS: PrefRow[] = [
+  {
+    key: "app_status",
+    en: "Application Status Updates",
+    ar: "تحديثات حالة الطلب",
+    channels: { email: "default-on", sms: "default-on", in_app: "locked-on" },
+  },
+  {
+    key: "payment",
+    en: "Payment Receipts",
+    ar: "إيصالات الدفع",
+    channels: { email: "default-on", sms: "n/a", in_app: "locked-on" },
+  },
+  {
+    key: "rfi",
+    en: "RFI / Information Requests",
+    ar: "طلبات المعلومات الإضافية",
+    channels: { email: "default-on", sms: "default-on", in_app: "locked-on" },
+  },
+  {
+    key: "renewal",
+    en: "Renewal Reminders",
+    ar: "تذكير التجديد",
+    channels: { email: "default-on", sms: "default-on", in_app: "locked-on" },
+  },
+  {
+    key: "system",
+    en: "System Announcements",
+    ar: "إعلانات النظام",
+    channels: { email: "default-on", sms: "n/a", in_app: "locked-on" },
+  },
+];
+
+const CHANNELS: Array<{ key: Channel; en: string; ar: string }> = [
+  { key: "email", en: "Email", ar: "البريد" },
+  { key: "sms", en: "SMS", ar: "رسائل SMS" },
+  { key: "in_app", en: "In-App", ar: "داخل التطبيق" },
+];
 
 const Profile: React.FC = () => {
   const { lang, setLang } = useLang();
@@ -14,21 +60,15 @@ const Profile: React.FC = () => {
 
   const [prefs, setPrefs] = React.useState<Record<string, boolean>>(() => {
     const o: Record<string, boolean> = {};
-    TOPICS.forEach((t) =>
+    ROWS.forEach((r) =>
       CHANNELS.forEach((c) => {
-        o[`${t}-${c}`] = c !== "sms";
+        const cfg = r.channels[c.key];
+        if (cfg === "default-on" || cfg === "locked-on") o[`${r.key}-${c.key}`] = true;
+        else if (cfg === "default-off") o[`${r.key}-${c.key}`] = false;
       }),
     );
     return o;
   });
-
-  const topicLabel = (t: string) =>
-    isAr
-      ? { app_updates: "تحديثات الطلب", payment: "إيصالات الدفع", renewal: "تذكير التجديد", system: "إشعارات النظام" }[t]
-      : { app_updates: "Application updates", payment: "Payment receipts", renewal: "Renewal reminders", system: "System announcements" }[t];
-
-  const channelLabel = (c: string) =>
-    isAr ? { email: "بريد", sms: "رسائل", in_app: "داخل التطبيق" }[c] : { email: "Email", sms: "SMS", in_app: "In-app" }[c];
 
   return (
     <div className="space-y-6 max-w-4xl">
@@ -85,37 +125,81 @@ const Profile: React.FC = () => {
         </CardContent>
       </Card>
 
-      <Card variant="bordered">
+      <Card variant="bordered" id="notifications">
         <CardContent className="pt-6">
-          <h2 className="text-sm font-semibold text-ink-primary mb-4">
-            {isAr ? "تفضيلات الإشعارات" : "Notification preferences"}
-          </h2>
-          <div className="overflow-x-auto">
+          <div className="flex items-start justify-between gap-4 mb-4 flex-wrap">
+            <div>
+              <h2 className="text-sm font-semibold text-ink-primary">
+                {isAr ? "تفضيلات الإشعارات" : "Notification preferences"}
+              </h2>
+              <p className="text-xs text-ink-secondary mt-1">
+                {isAr
+                  ? "اختر القنوات التي تتلقى عبرها كل نوع من الإشعارات. الإشعارات داخل التطبيق مفعّلة دائماً."
+                  : "Choose how you receive each type of notification. In-app alerts are always on."}
+              </p>
+            </div>
+          </div>
+          <div className="overflow-x-auto rounded-md ring-1 ring-border-default">
             <table className="w-full text-sm">
-              <thead>
-                <tr className="text-start">
-                  <th className="text-start py-2 text-ink-secondary font-medium"></th>
+              <thead className="bg-surface-50">
+                <tr>
+                  <th className="text-start py-3 px-4 text-xs uppercase tracking-wider text-ink-muted font-semibold">
+                    {isAr ? "نوع الإشعار" : "Notification type"}
+                  </th>
                   {CHANNELS.map((c) => (
-                    <th key={c} className="text-center py-2 text-xs uppercase tracking-wider text-ink-muted font-semibold">
-                      {channelLabel(c)}
+                    <th
+                      key={c.key}
+                      className="text-center py-3 px-4 text-xs uppercase tracking-wider text-ink-muted font-semibold w-28"
+                    >
+                      {isAr ? c.ar : c.en}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {TOPICS.map((t) => (
-                  <tr key={t} className="border-t border-border-default">
-                    <td className="py-3 pe-4 text-ink-primary">{topicLabel(t)}</td>
+                {ROWS.map((r) => (
+                  <tr key={r.key} className="border-t border-border-default">
+                    <td className="py-3 px-4 text-ink-primary">{isAr ? r.ar : r.en}</td>
                     {CHANNELS.map((c) => {
-                      const key = `${t}-${c}`;
+                      const cfg = r.channels[c.key];
+                      const key = `${r.key}-${c.key}`;
+                      if (!cfg || cfg === "n/a") {
+                        return (
+                          <td key={key} className="text-center py-3 px-4 text-ink-muted">
+                            —
+                          </td>
+                        );
+                      }
+                      const locked = cfg === "locked-on";
                       return (
-                        <td key={key} className="text-center py-3">
-                          <input
-                            type="checkbox"
-                            checked={prefs[key]}
-                            onChange={(e) => setPrefs({ ...prefs, [key]: e.target.checked })}
-                            className="h-4 w-4 accent-navy-800 cursor-pointer"
-                          />
+                        <td key={key} className="text-center py-3 px-4">
+                          <label
+                            className={cn(
+                              "inline-flex items-center justify-center cursor-pointer",
+                              locked && "cursor-not-allowed",
+                            )}
+                            title={locked ? (isAr ? "مفعّل دائماً" : "Always on") : undefined}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={prefs[key] ?? false}
+                              disabled={locked}
+                              onChange={(e) =>
+                                setPrefs({ ...prefs, [key]: e.target.checked })
+                              }
+                              className={cn(
+                                "h-4 w-4 accent-navy-800",
+                                locked && "opacity-60",
+                              )}
+                            />
+                            {locked && (
+                              <Lock
+                                size={11}
+                                className="ms-1.5 text-ink-muted"
+                                aria-label={isAr ? "مقفل" : "locked"}
+                              />
+                            )}
+                          </label>
                         </td>
                       );
                     })}
@@ -138,3 +222,4 @@ const Profile: React.FC = () => {
 };
 
 export default Profile;
+
