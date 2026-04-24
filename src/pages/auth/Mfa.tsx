@@ -54,8 +54,9 @@ const Mfa: React.FC = () => {
         return;
       }
       const redirect = params.get("redirect");
-      const fallback =
-        user?.role === "applicant" ? "/portal/dashboard" : "/assessor/queue";
+      const roleParam = params.get("role") as Role | null;
+      const effectiveRole = roleParam ?? user?.role ?? "applicant";
+      const fallback = getLandingForRole(effectiveRole);
       navigate(redirect ?? fallback, { replace: true });
     }, 600);
   };
