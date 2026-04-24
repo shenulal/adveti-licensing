@@ -1,6 +1,15 @@
 import * as React from "react";
 import { useLang } from "@/hooks/useLang";
-import { Badge, Button, Card, Input, Select, Table } from "@/components/adveti";
+import {
+  Badge,
+  Button,
+  Card,
+  EmptyState,
+  Input,
+  SearchEmptyIllustration,
+  Select,
+  Table,
+} from "@/components/adveti";
 import type { Column } from "@/components/adveti/Table";
 import { Search, Download, ChevronDown, ChevronRight, Eye } from "lucide-react";
 import { mockAuditLog, type AuditLogEntry } from "@/lib/mockAudit";
@@ -202,8 +211,26 @@ const AuditLogPage: React.FC = () => {
             </thead>
             <tbody>
               {pageRows.length === 0 && (
-                <tr><td colSpan={columns.length} className="text-center py-12 text-ink-secondary">
-                  {t({ en: "No audit entries match your filters", ar: "لا توجد إدخالات تطابق التصفية" })}
+                <tr><td colSpan={columns.length} className="p-0">
+                  <EmptyState
+                    illustration={<SearchEmptyIllustration />}
+                    title={t({ en: "No log entries match your filters", ar: "لا سجلات تطابق بحثك" })}
+                    description={t({
+                      en: "Try widening the date range or clearing one of the filters above.",
+                      ar: "وسّع النطاق الزمني أو امسح أحد الفلاتر بالأعلى.",
+                    })}
+                    action={
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setActorQuery(""); setEntityType(""); setActionType(""); setIp(""); setPreset("30d");
+                        }}
+                      >
+                        {t({ en: "Clear filters", ar: "مسح الفلاتر" })}
+                      </Button>
+                    }
+                  />
                 </td></tr>
               )}
               {pageRows.map((row) => (
