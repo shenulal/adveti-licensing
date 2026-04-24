@@ -168,10 +168,10 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/admin/users" element={<Placeholder title="User Management" />} />
-                <Route path="/admin/roles" element={<Placeholder title="Role & Permission Editor" />} />
-                <Route path="/admin/categories" element={<Placeholder title="Licence Category Config" />} />
-                <Route path="/admin/rubrics" element={<Placeholder title="Rubric Builder" />} />
+                <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/roles" element={<AdminRoles />} />
+                <Route path="/admin/categories" element={<AdminCategories />} />
+                <Route path="/admin/rubrics" element={<AdminRubrics />} />
                 <Route path="/admin/config" element={<Placeholder title="System Configuration" />} />
                 <Route path="/admin/flags" element={<Placeholder title="Feature Flags" />} />
                 <Route path="/admin/calendar" element={<Placeholder title="Working Calendar" />} />
