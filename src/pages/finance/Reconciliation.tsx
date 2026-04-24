@@ -136,7 +136,7 @@ const Reconciliation: React.FC = () => {
       description: isAr
         ? "تم تنزيل ملف المطابقة بصيغة CSV"
         : "Reconciliation file downloaded as CSV",
-      tone: "success",
+      type: "success",
     });
   };
 
@@ -516,7 +516,7 @@ const Reconciliation: React.FC = () => {
                   description: isAr
                     ? "تم إنشاء فاتورة جديدة وحفظ السجل في سجل التدقيق"
                     : "New invoice created and audit trail entry recorded.",
-                  tone: "success",
+                  type: "success",
                 });
                 setReissueOpen(false);
                 setActionRow(null);
@@ -609,7 +609,7 @@ const Reconciliation: React.FC = () => {
                   description: isAr
                     ? "تم إنشاء إشعار دائن وربطه بالفاتورة الأصلية"
                     : "Credit note created and linked to original invoice.",
-                  tone: "success",
+                  type: "success",
                 });
                 setCreditOpen(false);
                 setActionRow(null);
