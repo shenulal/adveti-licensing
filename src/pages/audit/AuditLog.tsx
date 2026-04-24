@@ -145,7 +145,7 @@ const AuditLogPage: React.FC = () => {
             {t({ en: "Read-only search across all system events. Timestamps in UAE timezone (GST, UTC+4).", ar: "بحث للقراءة فقط في جميع أحداث النظام. الأوقات بتوقيت الإمارات (GST، توقيت غرينتش +4)." })}
           </p>
         </div>
-        <Button variant="ghost" leftIcon={<Download size={16} />} onClick={handleExport}>
+        <Button variant="ghost" iconStart={<Download size={16} />} onClick={handleExport}>
           {t({ en: "Export to CSV", ar: "تصدير CSV" })}
         </Button>
       </header>
@@ -157,7 +157,7 @@ const AuditLogPage: React.FC = () => {
             placeholder={t({ en: "Name or email", ar: "الاسم أو البريد" })}
             value={actorQuery}
             onChange={(e) => setActorQuery(e.target.value)}
-            startIcon={<Search size={16} />}
+            iconStart={<Search size={16} />}
           />
           <Select
             label={t({ en: "Entity type", ar: "نوع الكيان" })}

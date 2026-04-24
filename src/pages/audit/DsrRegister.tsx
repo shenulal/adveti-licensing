@@ -85,7 +85,7 @@ const DsrRegisterPage: React.FC = () => {
             {t({ en: "Read-only PDPL Data Subject Request register. Filter and export only.", ar: "سجل للقراءة فقط لطلبات أصحاب البيانات وفق قانون PDPL. التصفية والتصدير فقط." })}
           </p>
         </div>
-        <Button variant="ghost" leftIcon={<Download size={16} />} onClick={handleExport}>
+        <Button variant="ghost" iconStart={<Download size={16} />} onClick={handleExport}>
           {t({ en: "Export CSV", ar: "تصدير CSV" })}
         </Button>
       </header>
@@ -102,7 +102,7 @@ const DsrRegisterPage: React.FC = () => {
             placeholder={t({ en: "ID or applicant", ar: "المعرّف أو الاسم" })}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            startIcon={<Search size={16} />}
+            iconStart={<Search size={16} />}
           />
           <Select
             label={t({ en: "Type", ar: "النوع" })}

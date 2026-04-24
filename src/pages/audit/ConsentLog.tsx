@@ -62,7 +62,7 @@ const ConsentLogPage: React.FC = () => {
             placeholder={t({ en: "Search by name", ar: "البحث بالاسم" })}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            startIcon={<Search size={16} />}
+            iconStart={<Search size={16} />}
           />
           <Select
             label={t({ en: "Consent type", ar: "نوع الموافقة" })}

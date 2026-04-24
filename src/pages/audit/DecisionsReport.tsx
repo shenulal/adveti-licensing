@@ -44,7 +44,7 @@ const DecisionsReportPage: React.FC = () => {
             {t({ en: "Pass / Incomplete / Reject ratios by licence category. Read-only for Auditor.", ar: "نسب النجاح / غير المكتمل / الرفض حسب فئة الترخيص. للقراءة فقط للمدقق." })}
           </p>
         </div>
-        <Button variant="ghost" leftIcon={<Download size={16} />} onClick={handleExport}>
+        <Button variant="ghost" iconStart={<Download size={16} />} onClick={handleExport}>
           {t({ en: "Export CSV", ar: "تصدير CSV" })}
         </Button>
       </header>

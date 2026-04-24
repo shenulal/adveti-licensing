@@ -60,7 +60,7 @@ const ExportsReportPage: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  leftIcon={<Download size={14} />}
+                  iconStart={<Download size={14} />}
                   onClick={() => handleDownload(item.id, item.name, item.format)}
                 >
                   {t({ en: "Download", ar: "تنزيل" })}
