@@ -426,6 +426,9 @@ const Login: React.FC = () => {
                 ? "يستخدم موظفو البوابة الإدارية والمقيّمون تسجيل الدخول بالبريد الإلكتروني. يمكن للمتقدمين استخدام أيٍّ من الطريقتين."
                 : "Back-office staff and assessors use email login. Applicants may use either method."}
             </p>
+
+            {/* ============ Demo credentials panel ============ */}
+            <DemoCredentialsPanel isAr={isAr} onSelect={fillDemo} />
           </div>
         </div>
       </section>
