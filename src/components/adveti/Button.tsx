@@ -16,11 +16,11 @@ export interface ButtonProps
 }
 
 const base =
-  "inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-fast ease-out focus-ring select-none whitespace-nowrap";
+  "inline-flex items-center justify-center gap-2 font-medium rounded-md transition-all duration-fast ease-out focus-ring select-none whitespace-nowrap motion-safe:hover:-translate-y-[2px] motion-safe:hover:shadow-lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-navy-800 text-ink-inverse hover:bg-navy-900 active:bg-navy-950 shadow-sm hover:shadow-md",
+    "bg-navy-800 text-ink-inverse hover:bg-navy-900 active:bg-navy-950 shadow-sm",
   secondary:
     "bg-surface-0 text-navy-800 border border-navy-800 hover:bg-navy-800/5 active:bg-navy-800/10",
   ghost:
@@ -28,7 +28,7 @@ const variants: Record<Variant, string> = {
   danger:
     "bg-danger-600 text-ink-inverse hover:brightness-110 active:brightness-95 shadow-sm",
   gold:
-    "bg-gold-500 text-navy-950 hover:bg-gold-400 active:bg-gold-600 shadow-sm hover:shadow-md font-semibold",
+    "bg-gold-500 text-navy-950 hover:bg-gold-400 active:bg-gold-600 shadow-sm font-semibold",
 };
 
 const sizes: Record<Size, string> = {
