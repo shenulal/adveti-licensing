@@ -56,6 +56,7 @@ import ConsentLog from "@/pages/audit/ConsentLog";
 import DsrRegister from "@/pages/audit/DsrRegister";
 import DecisionsReport from "@/pages/audit/DecisionsReport";
 import ExportsReport from "@/pages/audit/ExportsReport";
+import ContentTemplates from "@/pages/content/Templates";
 
 const queryClient = new QueryClient();
 
@@ -189,7 +190,7 @@ const App = () => (
                 <Route path="/content/pages" element={<Placeholder title="CMS Page Editor" />} />
                 <Route path="/content/media" element={<Placeholder title="Media Library" />} />
                 <Route path="/content/faqs" element={<Placeholder title="FAQ Manager" />} />
-                <Route path="/content/templates" element={<Placeholder title="Notification Templates" />} />
+                <Route path="/content/templates" element={<ContentTemplates />} />
                 <Route path="/content/seo" element={<Placeholder title="Meta Tag Editor" />} />
               </Route>
 
