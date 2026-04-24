@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { GraduationCap, Menu, ShieldCheck, X } from "lucide-react";
-import { Button, LanguageToggle } from "@/components/adveti";
+import { Button, LanguageToggle, SkipLink } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { CookieConsent } from "./CookieConsent";
 import { cn } from "@/lib/utils";
@@ -183,7 +183,7 @@ export const PublicShell: React.FC = () => {
         </div>
       )}
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         <div className="container py-10">
           <Outlet />
         </div>
