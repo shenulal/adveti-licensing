@@ -41,6 +41,12 @@ import PortalNotifications from "@/pages/portal/Notifications";
 import AssessorQueue from "@/pages/assessor/Queue";
 import ApplicationReview from "@/pages/assessor/ApplicationReview";
 import DecisionCapture from "@/pages/assessor/DecisionCapture";
+import ApprovalQueue from "@/pages/senior/ApprovalQueue";
+import ApproveOverride from "@/pages/senior/ApproveOverride";
+import Committee from "@/pages/senior/Committee";
+import Reassign from "@/pages/senior/Reassign";
+import AutoAssignmentConfig from "@/pages/senior/AutoAssignmentConfig";
+import SeniorReports from "@/pages/senior/Reports";
 
 const queryClient = new QueryClient();
 
@@ -117,9 +123,12 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/senior/queue" element={<Placeholder title="Approval Queue" />} />
-                <Route path="/senior/applications/:id/approve" element={<Placeholder title="Approve / Override" />} />
-                <Route path="/senior/reports" element={<Placeholder title="Senior Reports" />} />
+                <Route path="/senior/queue" element={<ApprovalQueue />} />
+                <Route path="/senior/applications/:id/approve" element={<ApproveOverride />} />
+                <Route path="/senior/applications/:id/committee" element={<Committee />} />
+                <Route path="/senior/applications/:id/reassign" element={<Reassign />} />
+                <Route path="/senior/assignment-rules" element={<AutoAssignmentConfig />} />
+                <Route path="/senior/reports" element={<SeniorReports />} />
               </Route>
 
               {/* ===== Finance ===== */}
