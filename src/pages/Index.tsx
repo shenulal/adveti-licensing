@@ -268,8 +268,8 @@ const Inner: React.FC<{ lang: Lang; setLang: (l: Lang) => void }> = ({
 
       <div className="container grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6 py-6">
         {/* ============ Sidebar ============ */}
-        <aside className="lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] bg-navy-900 rounded-lg p-3 flex flex-col">
-          <nav className="flex flex-col gap-1">
+        <aside className="lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] bg-navy-900 rounded-lg p-3 flex flex-col text-start">
+          <nav className="flex flex-col items-stretch gap-1 text-start">
             {navItems.map((n) => (
               <SidebarNavItem
                 key={n.id}
