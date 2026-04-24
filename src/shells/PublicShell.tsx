@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { GraduationCap, Menu, ShieldCheck, X } from "lucide-react";
-import { Button, LanguageToggle } from "@/components/adveti";
+import { Button, LanguageToggle, SkipLink } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
 import { CookieConsent } from "./CookieConsent";
 import { cn } from "@/lib/utils";
@@ -54,6 +54,7 @@ export const PublicShell: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-50 text-ink-primary">
+      <SkipLink />
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-normal",
@@ -84,7 +85,7 @@ export const PublicShell: React.FC = () => {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1 ms-4">
+          <nav aria-label={isAr ? "التنقل الرئيسي" : "Main navigation"} className="hidden lg:flex items-center gap-1 ms-4">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
@@ -183,7 +184,7 @@ export const PublicShell: React.FC = () => {
         </div>
       )}
 
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         <div className="container py-10">
           <Outlet />
         </div>
