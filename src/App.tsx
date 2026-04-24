@@ -38,6 +38,9 @@ import Certificate from "@/pages/portal/Certificate";
 import Renew from "@/pages/portal/Renew";
 import Profile from "@/pages/portal/Profile";
 import PortalNotifications from "@/pages/portal/Notifications";
+import AssessorQueue from "@/pages/assessor/Queue";
+import ApplicationReview from "@/pages/assessor/ApplicationReview";
+import DecisionCapture from "@/pages/assessor/DecisionCapture";
 
 const queryClient = new QueryClient();
 
@@ -101,10 +104,9 @@ const App = () => (
                   </RoleGuard>
                 }
               >
-                <Route path="/assessor/queue" element={<Placeholder title="Review Queue" />} />
-                <Route path="/assessor/applications/:id" element={<Placeholder title="Application Review" />} />
-                <Route path="/assessor/applications/:id/rubric" element={<Placeholder title="Rubric Checklist" />} />
-                <Route path="/assessor/applications/:id/decision" element={<Placeholder title="Decision Capture" />} />
+                <Route path="/assessor/queue" element={<AssessorQueue />} />
+                <Route path="/assessor/applications/:id" element={<ApplicationReview />} />
+                <Route path="/assessor/applications/:id/decision" element={<DecisionCapture />} />
               </Route>
 
               {/* ===== Senior assessor ===== */}
