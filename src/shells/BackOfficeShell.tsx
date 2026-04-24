@@ -28,6 +28,7 @@ import {
   Avatar,
   Badge,
   LanguageToggle,
+  NotificationBell,
   SidebarNavItem,
 } from "@/components/adveti";
 import { useLang } from "@/hooks/useLang";
@@ -197,15 +198,7 @@ export const BackOfficeShell: React.FC = () => {
 
           <LanguageToggle value={lang} onChange={setLang} />
 
-          <button
-            type="button"
-            className="relative h-10 w-10 inline-flex items-center justify-center rounded-md hover:bg-surface-100 focus-ring"
-            aria-label="Notifications"
-          >
-            <Bell size={18} className="text-ink-secondary" />
-            <span className="absolute top-1.5 end-1.5 h-2 w-2 rounded-full bg-danger-600" />
-          </button>
-
+          <NotificationBell viewAllHref="/admin/notifications" />
           <div className="relative">
             <button
               type="button"
