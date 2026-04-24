@@ -179,23 +179,50 @@ const AssessorQueue: React.FC = () => {
       key: "_action",
       header: "",
       align: "end",
-      render: (r) => (
-        <Button
-          size="sm"
-          variant="primary"
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/assessor/applications/${r.applicationId}`);
-          }}
-        >
-          {isAr ? "مراجعة" : "Review"}
-        </Button>
-      ),
+      render: (r) =>
+        isReadOnly ? (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/assessor/applications/${r.applicationId}`);
+            }}
+          >
+            {isAr ? "عرض" : "View"}
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            variant="primary"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/assessor/applications/${r.applicationId}`);
+            }}
+          >
+            {isAr ? "مراجعة" : "Review"}
+          </Button>
+        ),
     },
   ];
 
   return (
     <div className="space-y-6">
+      {isReadOnly && (
+        <div className="rounded-lg border border-info-600/20 bg-info-100 p-4 flex items-start gap-3">
+          <Info size={18} className="text-info-600 shrink-0 mt-0.5" />
+          <div className="text-sm">
+            <p className="font-semibold text-info-600">
+              {isAr ? "وضع القراءة فقط" : "Read-only access"}
+            </p>
+            <p className="text-info-600/90 mt-0.5 leading-relaxed">
+              {isAr
+                ? "ستتوفر إدارة الطعون في إصدار قادم من المنصة. يمنح دورك حالياً وصول قراءة فقط لسجلات الطلبات."
+                : "Appeals management will be available in a future platform release. Your role currently grants read-only access to application records."}
+            </p>
+          </div>
+        </div>
+      )}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-ink-primary">
