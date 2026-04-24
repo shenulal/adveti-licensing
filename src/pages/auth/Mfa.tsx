@@ -6,9 +6,8 @@ import {
   OtpInput,
 } from "@/components/adveti";
 import { AuthLayout } from "@/shells/AuthLayout";
-import { useLang } from "@/hooks/useLang";
 import { Role, useAuth } from "@/auth/AuthContext";
-import { getLandingForRole } from "@/pages/auth/Login";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import { ArrowLeft, ShieldCheck, Smartphone, KeyRound } from "lucide-react";
 
 type Method = "totp" | "sms";

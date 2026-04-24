@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, LifeBuoy, Search } from "lucide-react";
 import { Button, EmptyState, NotFoundIllustration } from "@/components/adveti";
+import { useAuth } from "@/auth/AuthContext";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import { useLang } from "@/hooks/useLang";
 
 const NotFound: React.FC = () => {

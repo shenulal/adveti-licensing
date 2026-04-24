@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Home, LogIn } from "lucide-react";
 import { Button, EmptyState, ForbiddenIllustration } from "@/components/adveti";
 import { useAuth, roleLabel } from "@/auth/AuthContext";
+import { getHomeForRole } from "@/auth/roleRoutes";
 import { useLang } from "@/hooks/useLang";
 
 const Forbidden: React.FC = () => {

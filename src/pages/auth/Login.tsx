@@ -7,8 +7,8 @@ import {
   LanguageToggle,
   UAEPassButton,
 } from "@/components/adveti";
-import { useLang } from "@/hooks/useLang";
 import { Role, useAuth } from "@/auth/AuthContext";
+import { BACK_OFFICE_ROLES, getHomeForRole } from "@/auth/roleRoutes";
 import { GraduationCap, Lock, Mail, ShieldCheck, Globe2, Award, X, Users, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 

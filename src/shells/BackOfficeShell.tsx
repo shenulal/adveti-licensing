@@ -32,9 +32,8 @@ import {
   SidebarNavItem,
   SkipLink,
 } from "@/components/adveti";
-import { useLang } from "@/hooks/useLang";
 import { Role, roleLabel, useAuth } from "@/auth/AuthContext";
-import { SessionTimeoutModal } from "@/auth/SessionTimeoutModal";
+import { getBackOfficeNotificationTarget, getHomeForRole } from "@/auth/roleRoutes";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
