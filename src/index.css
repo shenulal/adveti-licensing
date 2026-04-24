@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Cairo:wght@400;500;600;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -112,18 +112,18 @@
   }
 
   html {
-    font-family: var(--font-latin);
+    font-family: 'Lato', system-ui, -apple-system, sans-serif;
   }
 
   html[lang="ar"],
   html[dir="rtl"] {
-    font-family: var(--font-arabic);
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
     font-variant-numeric: tabular-nums;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "cv11", "ss01", "ss03";
+    font-family: inherit;
   }
 
   :focus-visible {
