@@ -145,7 +145,8 @@ const ToastView: React.FC<{ toast: ToastItem; onClose: () => void }> = ({
 };
 
 // ===== Inline alert (non-toast banner) =====
-export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AlertProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   type?: ToastType;
   title?: React.ReactNode;
   children?: React.ReactNode;
