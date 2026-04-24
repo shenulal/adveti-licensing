@@ -12,9 +12,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        latin: ["Inter", "system-ui", "sans-serif"],
+        latin: ["Lato", "system-ui", "sans-serif"],
         arabic: ["Cairo", "Noto Sans Arabic", "sans-serif"],
-        sans: ["Inter", "Cairo", "system-ui", "sans-serif"],
+        sans: ["Lato", "Cairo", "system-ui", "sans-serif"],
+        display: ["Lato", "Cairo", "system-ui", "sans-serif"],
       },
       fontSize: {
         xs: "var(--text-xs)",
