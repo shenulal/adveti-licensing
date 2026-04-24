@@ -54,6 +54,7 @@ export const PublicShell: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-50 text-ink-primary">
+      <SkipLink />
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-normal",
@@ -84,7 +85,7 @@ export const PublicShell: React.FC = () => {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1 ms-4">
+          <nav aria-label={isAr ? "التنقل الرئيسي" : "Main navigation"} className="hidden lg:flex items-center gap-1 ms-4">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
