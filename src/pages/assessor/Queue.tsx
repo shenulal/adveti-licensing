@@ -260,22 +260,24 @@ const AssessorQueue: React.FC = () => {
               label={isAr ? "الفئة" : "Category"}
               value={category}
               onChange={(e) => setCategory(e.target.value as CategoryFilter)}
-            >
-              <option value="All">{isAr ? "كل الفئات" : "All categories"}</option>
-              <option value="Teacher">{isAr ? "معلم" : "Teacher"}</option>
-              <option value="Counsellor">{isAr ? "مرشد" : "Counsellor"}</option>
-              <option value="Trainer">{isAr ? "مدرب" : "Trainer"}</option>
-            </Select>
+              options={[
+                { value: "All", label: isAr ? "كل الفئات" : "All categories" },
+                { value: "Teacher", label: isAr ? "معلم" : "Teacher" },
+                { value: "Counsellor", label: isAr ? "مرشد" : "Counsellor" },
+                { value: "Trainer", label: isAr ? "مدرب" : "Trainer" },
+              ]}
+            />
             <Select
               label="SLA"
               value={sla}
               onChange={(e) => setSla(e.target.value as SlaFilter)}
-            >
-              <option value="All">{isAr ? "الكل" : "All"}</option>
-              <option value="DueToday">{isAr ? "مستحق اليوم" : "Due today"}</option>
-              <option value="Overdue">{isAr ? "متأخر" : "Overdue"}</option>
-              <option value="OnTrack">{isAr ? "في الموعد" : "On track"}</option>
-            </Select>
+              options={[
+                { value: "All", label: isAr ? "الكل" : "All" },
+                { value: "DueToday", label: isAr ? "مستحق اليوم" : "Due today" },
+                { value: "Overdue", label: isAr ? "متأخر" : "Overdue" },
+                { value: "OnTrack", label: isAr ? "في الموعد" : "On track" },
+              ]}
+            />
             <Input
               label={isAr ? "بحث" : "Search"}
               placeholder={
